@@ -52,7 +52,7 @@ export default function Contact() {
           </dl>
 
           <div className="contact__actions">
-            <CallButton size="lg" label={contact.cta} />
+            <CallButton size="lg" label={contact.cta} directCall />
             <MapButton label={ui.openMaps} />
           </div>
 

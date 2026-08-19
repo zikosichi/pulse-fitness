@@ -130,10 +130,8 @@ export default function Trainers() {
     run.finished.then(done, done);
   }
 
-  /* The panel's CTA falls back to #contact while there is no phone number on
-     file. Left alone it jumps the page with the panel still open on top of
-     it, so intercept: collapse first, then travel. Once a real number is
-     configured the href becomes tel: and this steps aside to let it dial. */
+  /* The panel's CTA closes the modal before travelling to the contact
+     section, otherwise it would jump the page with the panel still open. */
   function book(e: React.MouseEvent<HTMLAnchorElement>) {
     const href = e.currentTarget.getAttribute("href") ?? "";
     if (!href.startsWith("#")) return;

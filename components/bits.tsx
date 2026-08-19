@@ -103,11 +103,14 @@ export function Tbd({ label }: { label: Bi }) {
   return <span className="tbd">{t(label)}</span>;
 }
 
-/** Falls back to the contact section until a real number exists. */
+/** Page CTAs lead to the contact section by default. Only the final contact
+    CTA opts into dialing, so visitors reach the business details before the
+    site hands off to their phone. */
 export function CallButton({
   size = "md",
   variant = "pulse",
   icon = true,
+  directCall = false,
   label,
   className,
   onClick,
@@ -115,6 +118,7 @@ export function CallButton({
   size?: "sm" | "md" | "lg";
   variant?: "pulse" | "outline";
   icon?: boolean;
+  directCall?: boolean;
   label?: Bi;
   className?: string;
   onClick?: MouseEventHandler<HTMLAnchorElement>;
@@ -124,7 +128,7 @@ export function CallButton({
   return (
     <a
       className={`btn btn--${variant}${mod}${className ? ` ${className}` : ""}`}
-      href={telHref ?? "#contact"}
+      href={directCall ? (telHref ?? "#contact") : "#contact"}
       onClick={onClick}
     >
       {icon && size !== "sm" && <PhoneIcon />}
