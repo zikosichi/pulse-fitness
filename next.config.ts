@@ -1,7 +1,18 @@
+import path from "node:path";
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  images: {
+    // Next 16 only honours qualities named here; anything else silently
+    // falls back to 75, which is why these have to be declared.
+    qualities: [75, 80, 82],
+  },
+  turbopack: {
+    // There is a stray yarn.lock in the home directory above this project,
+    // which makes Turbopack's automatic root detection walk too far up.
+    // Pin the root to this folder.
+    root: path.resolve(process.cwd()),
+  },
 };
 
 export default nextConfig;
