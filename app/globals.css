@@ -1197,6 +1197,7 @@ html.tmorph .tcard{background-image:none;border-color:transparent;box-shadow:non
   .hero__rule{display:none}
   .deck{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
   .divider{height:170px}
+  .divider span{top:22px;z-index:1}
   .divider__line{top:56px;height:110px}
   .divider__pulse{top:56px;width:276px;height:110px}
   .ghost{height:88px}
@@ -1229,6 +1230,7 @@ html.tmorph .tcard{background-image:none;border-color:transparent;box-shadow:non
   .about__promise{gap:8px}
   .footer__top{flex-direction:column;gap:28px}
   .divider{height:140px}
+  .divider span{top:14px}
   .divider__line{top:44px;height:84px}
   .divider__pulse{top:44px;width:211px;height:84px}
   .ghost{height:64px}

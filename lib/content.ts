@@ -52,7 +52,7 @@ export const ui = {
 
   /* hero */
   eyebrow: { ka: "წყალტუბოს პირველი სპორტდარბაზი", en: "Tskaltubo's first gym" },
-  open: { ka: "ღიაა", en: "Open" },
+  open: { ka: "სამუშაო საათები", en: "Open" },
   price: { ka: "ფასი", en: "From" },
   fromPrice: { ka: "120 ₾-დან", en: "120 ₾" },
   city: { ka: "წყალტუბო", en: "Tskaltubo" },
