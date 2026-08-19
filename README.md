@@ -92,28 +92,18 @@ this size.
 
 `lib/config.ts`. Set one value and the whole page picks it up.
 
-Currently **real**: address, Plus Code, coordinates, map. The map link is
-derived from the coordinates rather than stored separately, so the button and
-the printed numbers cannot drift apart.
+Currently **real**: address, coordinates, embedded map, and the public Google
+Maps pin. The unverified Plus Code has been removed.
 
-Still `null`, rendering as **visible dashed placeholders**: phone and social
-handles. Deliberate — nothing is silently missing and nothing is silently
-invented. Call buttons fall back to scrolling to the contact section until a
-real number exists, so they are never dead.
+Still `null`, rendering as **visible dashed placeholders**: social handles.
+Deliberate — nothing is silently missing and nothing is silently invented.
 
 ### The map
 
-**OpenStreetMap**, not Google: the embed needs no API key, no billing account
-and no consent banner. Set `mapEmbed` to a Google embed URL instead and the
-panel picks it up unchanged; clear it and the panel falls back to a static
-pin card.
-
-OSM ships light tiles, so they are inverted and hue-rotated into the page's
-register. The OSM attribution in the corner is a licence condition — leave it.
-
-The embed scroll-zooms on the wheel, which would trap the page scroll halfway
-down a one-pager, so the iframe is `pointer-events: none` behind a veil until
-someone taps it. The veil doubles as the address card.
+The section uses a directly visible, lazy-loaded Google Maps embed centred on
+the verified pin. A restrained CSS filter brings the map into the site's dark
+palette without making it difficult to read, and the external map button opens
+the venue's verified public Google Maps share link.
 
 ## Language
 

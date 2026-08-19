@@ -7,6 +7,24 @@ import { useLang } from "./LangProvider";
 import { CallButton, Close } from "./bits";
 import { ui, type Trainer } from "@/lib/content";
 
+/* The width below which the panel stops being a centred box and becomes a
+   near-full-screen sheet. It is the breakpoint the panel's layout already
+   stacks at, so there is only ever one mobile shape to reason about. */
+export const SHEET_MQ = "(max-width:860px)";
+export const isSheet = () => window.matchMedia(SHEET_MQ).matches;
+
+/* The width a classic scrollbar takes out of the page. Overlay scrollbars —
+   every touch device, and macOS unless a mouse is attached — measure 0. */
+function scrollbarWidth() {
+  const probe = document.createElement("div");
+  probe.style.cssText =
+    "position:absolute;visibility:hidden;overflow:scroll;width:100px;height:100px";
+  document.body.append(probe);
+  const w = probe.offsetWidth - probe.clientWidth;
+  probe.remove();
+  return w;
+}
+
 /* The panel a trainer card morphs into. A native <dialog> so the focus trap,
    Esc and the inert background come from the platform rather than from us —
    Esc is intercepted only so closing runs through the same view transition
@@ -16,7 +34,13 @@ import { ui, type Trainer } from "@/lib/content";
    child element, not ::backdrop, because Chrome does not capture the top
    layer's backdrop in a view transition and it would snap on at full
    strength while the panel was still growing. As an ordinary element with
-   its own transition name it fades in step with the morph. */
+   its own transition name it fades in step with the morph.
+
+   None of that runs on a phone. There the sheet is simply there on the tap
+   and gone on the X: the card is within 45px of the sheet's width, so the
+   morph had no distance to cover, and every animation tried in its place
+   read as a glitch against the browser's own chrome moving at the same
+   moment. Instant is the one thing that cannot look wrong. */
 export default function TrainerModal({
   trainer,
   onClose,
@@ -27,7 +51,7 @@ export default function TrainerModal({
   onBook: MouseEventHandler<HTMLAnchorElement>;
 }) {
   const { t } = useLang();
-  const ref = useRef<HTMLDialogElement>(null);
+  const dialog = useRef<HTMLDialogElement>(null);
   const text = trainer.bio ?? (trainer.short ? [trainer.short] : null);
 
   /* showModal has to run synchronously with the mount: opening happens inside
@@ -36,7 +60,7 @@ export default function TrainerModal({
      dialog rather than the first control, so the trainer's name is announced
      instead of the call button. */
   useLayoutEffect(() => {
-    const el = ref.current;
+    const el = dialog.current;
     if (el && !el.open) {
       el.showModal();
       el.focus();
@@ -44,10 +68,14 @@ export default function TrainerModal({
   }, []);
 
   /* showModal does not lock the page behind it. The padding keeps the layout
-     from jumping left where the scrollbar takes up room. */
+     from jumping left where a classic scrollbar gives up its room — measured
+     from a probe rather than taken as innerWidth - clientWidth, because on a
+     phone those two also differ whenever the page is scaled, and padding by
+     that difference re-wraps the entire document behind the sheet for
+     nothing. */
   useEffect(() => {
     const html = document.documentElement;
-    const gutter = window.innerWidth - html.clientWidth;
+    const gutter = html.scrollHeight > html.clientHeight ? scrollbarWidth() : 0;
     const overflow = html.style.overflow;
     const pad = html.style.paddingRight;
     html.style.overflow = "hidden";
@@ -60,7 +88,7 @@ export default function TrainerModal({
 
   return (
     <dialog
-      ref={ref}
+      ref={dialog}
       className="tsheet"
       tabIndex={-1}
       aria-labelledby="tmodal-name"

@@ -152,6 +152,10 @@
   --plate-max:1800px;
 
   --r-card:18px;
+  /* The sheet is a far bigger box than any card, and a card's 18px arc reads
+     as almost square at that size — the corner has to grow with the box. */
+  --r-sheet:26px;
+  --sheet-inset:14px;
   --r-media:20px;
   --r-slide:22px;
   --r-tile:16px;
@@ -263,7 +267,8 @@ h1,h2,h3{margin:0;font-weight:var(--head-w)}
 .btn:hover{transform:translateY(-1px)}
 .btn--pulse:hover{background:#48d078}
 .btn--ghost:hover,.btn--outline:hover{border-color:#FFFFFF5C;background:#FFFFFF14}
-@media (prefers-reduced-motion:reduce){.btn:hover{transform:none}}
+.btn:active{transform:translateY(0);transition-duration:.07s}
+@media (prefers-reduced-motion:reduce){.btn:hover,.btn:active{transform:none}}
 
 /* A small capsule with a live dot — eyebrow, slide caption, status. */
 .pill{
@@ -635,8 +640,13 @@ html[data-lang="en"] .citycard__word{--city-w:19.85cqw;letter-spacing:.01em}
 
 /* A transparent full-screen host. It exists for the focus trap and Esc; all
    the visible styling lives on the scrim and the panel inside it. */
+/* svh, not dvh. dvh tracks the browser's retracting toolbars, and opening the
+   sheet is exactly when those move: locking the page makes it unscrollable
+   and Safari puts the URL bar back, resizing a dvh-sized host the moment it
+   appears. svh is the smallest stable height, so the sheet is sized once and
+   stays put whatever the chrome does. */
 .tsheet{
-  width:100vw;max-width:100vw;height:100dvh;max-height:100dvh;
+  width:100vw;max-width:100vw;height:100svh;max-height:100svh;
   margin:0;padding:0;border:0;background:none;overflow:hidden;
   display:grid;place-items:center;
 }
@@ -818,23 +828,61 @@ html.tmorph .tcard{background-image:none;border-color:transparent;box-shadow:non
   ::view-transition-new(*){animation:none!important}
 }
 
-/* Stacked, and the whole panel scrolls rather than just its right half. */
+/* Stacked, and the whole screen rather than a box in the middle of it. */
 @media (max-width:860px){
-  .tmodal{height:min(640px,88dvh)}
+  /* All of the screen bar a thin margin, and still a rounded box. What was
+     wrong before was not the margin but the cap: the panel was pinned to
+     640px tall whatever the screen, so a phone got a box floating in the
+     middle of a dim field with its content cut off inside. Filling the
+     space that is actually there fixes that and keeps the sheet a card. */
+  /* The margin goes on the host, so the sheet is simply "all of what is
+     left" and never has to subtract anything itself. max() rather than a
+     flat inset: on a notched phone the safe area is the larger number and
+     the corners would otherwise sit under the clock and the home
+     indicator. */
+  .tsheet{
+    padding:
+      max(var(--sheet-inset),env(safe-area-inset-top))
+      max(var(--sheet-inset),env(safe-area-inset-right))
+      max(var(--sheet-inset),env(safe-area-inset-bottom))
+      max(var(--sheet-inset),env(safe-area-inset-left));
+  }
+  .tmodal{width:100%;height:100%;max-width:none;border-radius:var(--r-sheet)}
+  /* The sheet is there on the tap and gone on the X. Every way of animating
+     it in read as a glitch on a phone, because the browser's own toolbars
+     are moving at that same moment and nothing we draw is in step with
+     them. This also cancels the no-view-transitions fallback above, which
+     would otherwise pop the panel up from 94%. */
+  .tmodal,.tsheet__scrim{animation:none}
+  /* Nothing here takes part in a view transition. The card is within 45px of
+     the sheet's width so there is no morph worth running, and a name left on
+     both sides would abort any transition the page started while the sheet
+     was open. */
+  .tmodal,.tmodal__media,.tmodal__media .tcard__badge,.tmodal__stats,
+  .tmodal__head,.tmodal__detail,.tmodal__close{view-transition-name:none}
+
   /* The aside stops being a column and hands its two children to the panel,
      so the stat row can sit after the bio instead of cutting in between the
      photograph and the name. */
-  .tmodal__inner{display:flex;flex-direction:column;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  .tmodal__inner{display:flex;flex-direction:column;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
   .tmodal__aside{display:contents}
   .tmodal__media{order:1;flex:0 0 auto;aspect-ratio:16/10;min-height:0}
-  ::view-transition-group(trainer-photo){border-radius:var(--r-card) var(--r-card) 0 0}
   /* flex:0 0 auto throughout — left shrinkable, the body compresses under
      its own text and the bio spills through the stat row. */
   .tmodal__body{order:2;flex:0 0 auto;overflow:visible;padding:26px 24px 24px}
   .tmodal__stats{order:3;flex:0 0 auto;border-top:1px solid var(--line-3)}
   .tmodal__head h3{font-size:26px;line-height:32px}
   .tmodal__detail{gap:26px}
+
+  /* A 44px target, and dark enough to hold against the photograph behind
+     it — at this size the X is the obvious way out even with the scrim
+     still tappable around the sheet. */
+  .tmodal__close{
+    top:14px;right:14px;width:44px;height:44px;
+    background:#0C1813C7;border-color:var(--line-5);
+  }
 }
+
 
 /* =========================================================================
    06 Offer — a numbered list, no cards.
@@ -1035,26 +1083,21 @@ html.tmorph .tcard{background-image:none;border-color:transparent;box-shadow:non
 .contact__map{
   position:relative;
   flex:1 1 0;min-height:480px;display:flex;align-items:center;justify-content:center;
-  border-radius:var(--r-media);background-image:var(--surf-plan);
-  border:1px solid var(--line-1);box-shadow:inset 0 1px 0 #FFFFFF1F;
+  border-radius:var(--r-media);border:1px solid transparent;
+  background:
+    linear-gradient(var(--ink),var(--ink)) padding-box,
+    linear-gradient(180deg,
+      rgba(198,210,204,.43) 0%,
+      rgba(198,210,204,.38) 30%,
+      rgba(198,210,204,.29) 62%,
+      rgba(198,210,204,.18) 100%) border-box;
+  box-shadow:0 22px 54px #00000066;
   overflow:hidden;
 }
-/* OpenStreetMap ships light tiles. Inverting and rotating the hue puts them
-   in the page's register; the rest pulls the result back off pure white and
-   toward the green cast the grounds carry. */
 .contact__map iframe{
-  width:100%;height:100%;min-height:480px;border:0;pointer-events:none;
-  filter:invert(.92) hue-rotate(180deg) saturate(.55) brightness(.92) contrast(.9);
+  width:100%;height:100%;min-height:480px;border:0;
+  filter:invert(.84) hue-rotate(180deg) saturate(.78) brightness(.96) contrast(1.05);
 }
-.contact__map.is-live iframe{pointer-events:auto}
-
-.contact__veil{
-  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
-  background:#08120EC7;backdrop-filter:blur(1.5px);cursor:pointer;
-  transition:opacity .35s var(--ease),background-color .2s var(--ease);
-}
-.contact__veil:hover{background:#08120EB0}
-.contact__map.is-live .contact__veil{opacity:0;pointer-events:none}
 
 .contact__pin{display:flex;flex-direction:column;align-items:center;gap:16px;text-align:center;padding:32px}
 /* Direct child only — the coordinate separator is also an <i>, one level

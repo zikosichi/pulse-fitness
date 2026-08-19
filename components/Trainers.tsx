@@ -5,7 +5,7 @@ import { useRef, useState } from "react";
 import { flushSync } from "react-dom";
 import { useLang } from "./LangProvider";
 import { Expand } from "./bits";
-import TrainerModal from "./TrainerModal";
+import TrainerModal, { isSheet } from "./TrainerModal";
 import { trainers, trainersMeta, ui, type Trainer } from "@/lib/content";
 
 /* Clicking anywhere on a card morphs it into the centred profile panel.
@@ -55,9 +55,13 @@ interface ViewTransitions {
 
 const vt = () => document as unknown as ViewTransitions;
 
+/* Narrow screens open the panel as a sheet, with no transition at all — see
+   TrainerModal. The morph has nowhere to go there: card and panel are within
+   45px of the same width. */
 const canMorph = () =>
   typeof vt().startViewTransition === "function" &&
-  !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  !window.matchMedia("(prefers-reduced-motion: reduce)").matches &&
+  !isSheet();
 
 export default function Trainers() {
   const { t } = useLang();

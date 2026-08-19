@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { useLang } from "./LangProvider";
 import { CallButton, MapButton, Tbd } from "./bits";
 import { config, mapLink } from "@/lib/config";
@@ -13,7 +12,6 @@ import { contact, ui } from "@/lib/content";
    — the trainer panel's booking button — without joining the tab order. */
 export default function Contact() {
   const { t, lang } = useLang();
-  const [live, setLive] = useState(false);
   const address = config.address[lang];
 
   return (
@@ -76,37 +74,15 @@ export default function Contact() {
           )}
         </div>
 
-        <div className={`contact__map${live ? " is-live" : ""}`}>
+        <div className="contact__map">
           {config.mapEmbed ? (
-            <>
-              <iframe
-                src={config.mapEmbed}
-                title={t(contact.title)}
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              />
-              {/* The embed scroll-zooms on wheel, which would trap the page
-                  scroll halfway down a one-pager. It stays inert until it is
-                  asked for. */}
-              <button
-                type="button"
-                className="contact__veil"
-                aria-label={t(ui.mapActivate)}
-                onClick={() => setLive(true)}
-                tabIndex={live ? -1 : 0}
-              >
-                <span className="contact__pin">
-                  <i aria-hidden="true" />
-                  <b>{address ?? t(ui.addressPlaceholder)}</b>
-                  <span className="contact__coords">
-                    <b>{config.plusCode}</b>
-                    <i aria-hidden="true" />
-                    <span>{config.coords}</span>
-                  </span>
-                  <span className="contact__mapnote">{t(ui.mapActivate)}</span>
-                </span>
-              </button>
-            </>
+            <iframe
+              src={config.mapEmbed}
+              title={t(contact.title)}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              allowFullScreen
+            />
           ) : (
             <a
               className="contact__pin"

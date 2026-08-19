@@ -23,15 +23,17 @@ export const DEFAULTS: Settings = {
   scale: 1,
 };
 
-/* Tuned in /lab and locked. Thin core, long tip taper, and the core white
-   pulled almost all the way out so the line stays --pulse green instead of
-   blowing to white — which is what keeps it reading as the brand's green
-   rather than as generic neon. */
+/* Tuned in place over the hero photograph and locked.
+
+   Core white is 0: the exposure tonemap is left to do the whitening on its
+   own, so the line stays --pulse green all the way through its core instead
+   of blowing out. That is what keeps it reading as the brand's green rather
+   than as generic neon. */
 export const HERO_SETTINGS: Settings = {
-  core: 6.5, thick: 0.66, halo: 0.13, haloR: 21, taper: 0.27,
-  filAlong: 0.016, filAcross: 0.12, flow: 135, ridge: 2.05,
+  core: 6.5, thick: 0.66, halo: 0.33, haloR: 21, taper: 0.305,
+  filAlong: 0.016, filAcross: 0.12, flow: 180, ridge: 2.05,
   dodge: 0.71, sparkDens: 0.09, sparkAmt: 0.12, filReach: 34, corner: 40,
   nodeSpeed: 0.28, nodeWidth: 90, nodeGain: 1.6, flicker: 0.14,
-  exposure: 1.25, white: 0.05,
+  exposure: 1.25, white: 0,
   scale: 1,
 };

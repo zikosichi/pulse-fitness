@@ -67,6 +67,7 @@ uniform vec3  uGlow;
 uniform vec3  uBg;
 uniform int   uDebug;        // 0 off · 1 distance · 2 arc length · 3 filaments
 uniform int   uPremul;       // 1 = emit premultiplied light for additive compositing
+uniform float uEdgeFade;     // logo units; fade the field out before the canvas edge (0 = off)
 
 float hash11(float n) { return fract(sin(n * 78.233) * 43758.5453); }
 
@@ -150,9 +151,17 @@ void main() {
   float edge = max(uTaper * uLen, 1e-3);
   float taper = smoothstep(0.0, edge, sClamped) * smoothstep(0.0, edge, uLen - sClamped);
 
-  /* Travelling node, left -> right, matching the logo's lean. */
+  /* Travelling node, left -> right, matching the logo's lean.
+
+     This reads the BLENDED arc length, not the clamped one. Outside a sharp
+     corner a whole wedge of pixels shares a single nearest point, so the
+     clamped value is constant across it — and since the node scales the glow
+     radius, that entire wedge brightened and dimmed as one block with hard
+     edges as the swell went past. It read as a cone of light firing off the
+     spike. The blended coordinate keeps varying through the wedge, so the
+     swell sweeps across the corner instead of switching it on. */
   float head = fract(uTime * uNodeSpeed) * uLen;
-  float node = exp(-pow((sClamped - head) / max(uNodeWidth, 1.0), 2.0));
+  float node = exp(-pow((s - head) / max(uNodeWidth, 1.0), 2.0));
 
   /* 40ms jitter. */
   float fl = hash11(floor(uTime * 25.0));
@@ -214,13 +223,37 @@ void main() {
   vec3 col = vec3(1.0) - exp(-tint * I * uExposure);
   col = mix(col, vec3(1.0), smoothstep(0.7, 2.5, I) * uWhite);
 
+  /* The 1/d falloff decays too slowly for any practical canvas to contain it,
+     so a box big enough to hide its own edge is not affordable. Instead take
+     the field to zero just before the edge. Cheap, and it holds for any canvas
+     size or fit mode. */
+  if (uEdgeFade > 0.0) {
+    vec2 lo = -uPan / uZoom;
+    vec2 hi = (uResolution - uPan) / uZoom;
+    vec2 a = smoothstep(vec2(0.0), vec2(uEdgeFade), p - lo);
+    vec2 b = smoothstep(vec2(0.0), vec2(uEdgeFade), hi - p);
+    col *= a.x * a.y * b.x * b.y;
+  }
+
   col += uBg;
   col += (hash21(gl_FragCoord.xy + fract(uTime)) - 0.5) / 255.0;  /* deband */
 
-  /* Premultiplied alpha with a = 0 makes the standard "over" operator collapse
-     to src + dst — genuinely additive light, using ordinary compositing. That
-     matters because the hero's h1 is an isolated stacking context, where a CSS
-     blend mode has no backdrop to reach and the canvas would paint its own
-     black rectangle over the photograph. */
-  fragColor = uPremul == 1 ? vec4(col, 0.0) : vec4(col, 1.0);
+  /* Composite as light rather than as an opaque plate. The hero's h1 is an
+     isolated stacking context, so a CSS blend mode has no backdrop to reach
+     and an opaque canvas would paint a black rectangle over the photograph.
+
+     Alpha is the brightest channel, which keeps RGB <= A — valid premultiplied
+     data. Do NOT be tempted back to alpha = 0 to get a purely additive result:
+     RGB > A is undefined premultiplied input and implementations are free to
+     clamp it to nothing, which is exactly what happened — the shader ran, the
+     first frame reported, and the line was invisible on screen.
+
+     "over" with this alpha gives col + dst * (1 - a): the core replaces what
+     is behind it, and the faint halo is near-additive. */
+  if (uPremul == 1) {
+    vec3 c = clamp(col, 0.0, 1.0);
+    fragColor = vec4(c, max(max(c.r, c.g), c.b));
+  } else {
+    fragColor = vec4(col, 1.0);
+  }
 }`;

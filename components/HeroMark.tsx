@@ -1,9 +1,29 @@
 "use client";
 
 import Image from "next/image";
+import dynamic from "next/dynamic";
 import { useState, useSyncExternalStore } from "react";
 import PulseCanvas from "@/components/pulse/PulseCanvas";
 import { HERO_SETTINGS } from "@/components/pulse/settings";
+
+/* The in-place tuning panel. Kept for future tweaking but off by default: it
+   renders only in development AND only when the URL carries ?tune. The dev
+   server still serves its chunk either way — Turbopack prefetches it — but
+   nothing renders and it costs nothing at runtime. In a production build the
+   NODE_ENV branch is dead, so the import is eliminated and the chunk is never
+   emitted at all.
+
+   To tune again: http://localhost:3000/?tune */
+const Tuner =
+  process.env.NODE_ENV === "development"
+    ? dynamic(() => import("./HeroTuner"), { ssr: false })
+    : null;
+
+let tuneFlag: boolean | null = null;
+const wantsTuner = () => {
+  if (tuneFlag === null) tuneFlag = new URLSearchParams(window.location.search).has("tune");
+  return tuneFlag;
+};
 
 /* The wordmark with its pulse line lit rather than drawn.
 
@@ -68,9 +88,11 @@ export default function HeroMark() {
      (static logo) consistent with hydration. */
   const capableNow = useSyncExternalStore(neverChanges, canRun, onServer);
   const narrow = useSyncExternalStore(watchNarrow, isNarrow, onServer);
+  const tuning = useSyncExternalStore(neverChanges, wantsTuner, onServer);
 
   const [failed, setFailed] = useState(false);
   const [lit, setLit] = useState(false);
+  const [tuned, setTuned] = useState(HERO_SETTINGS);
 
   const live = capableNow && !failed;
 
@@ -86,14 +108,16 @@ export default function HeroMark() {
       />
       {live && (
         <PulseCanvas
-          settings={{ ...HERO_SETTINGS, scale: narrow ? 0.7 : 1 }}
+          settings={{ ...tuned, scale: narrow ? 0.7 : 1 }}
           fit="viewbox"
           background={BLACK}
           transparent
+          edgeFade={90}
           onReady={() => setLit(true)}
           onError={() => { setFailed(true); setLit(false); }}
         />
       )}
+      {Tuner && tuning && <Tuner value={tuned} onChange={setTuned} />}
     </span>
   );
 }

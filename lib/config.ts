@@ -18,23 +18,25 @@ export type SiteConfig = {
   coords: string | null;
   /** Google Maps → Share → Embed a map → the src URL */
   mapEmbed: string | null;
+  /** Verified public Google Maps share link */
+  mapUrl: string | null;
   socials: { instagram: string | null; facebook: string | null };
 };
 
 export const config: SiteConfig = {
-  phone: null,
-  phoneDisplay: null,
+  phone: "+995598294373",
+  phoneDisplay: "+995 598 29 43 73",
   address: {
-    ka: "ლორთქიფანიძის ქუჩა, წყალტუბო",
-    en: "Lortkipanidze St, Tskaltubo",
+    ka: "წერეთლის ქუჩა 12, წყალტუბო",
+    en: "12 Tsereteli Street, Tskaltubo",
   },
-  plusCode: "8HPW+HP3",
-  coords: "42.33648, 42.59676",
-  // OpenStreetMap rather than Google: no API key, no billing account, no
-  // consent banner. The bbox is ~1.2km across, framed on the marker.
-  // Swap in a Google embed URL here later and the panel picks it up.
+  plusCode: null,
+  coords: "42.3284756, 42.6004137",
+  // Google Maps embed centred on the coordinates resolved from the verified
+  // public Maps pin. This query-style embed needs no API key.
   mapEmbed:
-    "https://www.openstreetmap.org/export/embed.html?bbox=42.5907%2C42.3332%2C42.6028%2C42.3398&layer=mapnik&marker=42.33648%2C42.59676",
+    "https://www.google.com/maps?q=42.3284756%2C42.6004137&z=17&output=embed",
+  mapUrl: "https://maps.app.goo.gl/hw5MeYuzCxYuF5hQ9",
   socials: {
     instagram: null,
     facebook: null,
@@ -46,8 +48,10 @@ export const telHref = config.phone
   ? `tel:${config.phone.replace(/[^\d+]/g, "")}`
   : null;
 
-/** Built from the coordinates above rather than stored separately, so the
-    button and the printed coordinates can never drift apart. */
-export const mapLink = config.coords
-  ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(config.coords.replace(/\s/g, ""))}`
-  : null;
+/** Prefer the verified public pin; coordinates keep the link functional if
+    the share URL is ever removed. */
+export const mapLink =
+  config.mapUrl ??
+  (config.coords
+    ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(config.coords.replace(/\s/g, ""))}`
+    : null);

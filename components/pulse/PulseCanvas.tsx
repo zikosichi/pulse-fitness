@@ -56,6 +56,9 @@ type Props = {
   /* Emit light additively over whatever is behind the canvas instead of
      painting an opaque ground. Pair with background = black. */
   transparent?: boolean;
+  /* Logo units of soft fade at the canvas edge. Needed wherever the canvas is
+     composited over something (the hero), so its box can never show. */
+  edgeFade?: number;
   /* Fired after the first frame actually reaches the screen. */
   onReady?: () => void;
   onFps?: (fps: number) => void;
@@ -67,7 +70,7 @@ type Props = {
 
 export default function PulseCanvas({
   settings, debug = 0, paused = false, zoom = 1,
-  fit: fitMode = "line", background = INK, transparent = false,
+  fit: fitMode = "line", background = INK, transparent = false, edgeFade = 0,
   onFps, onError, onFit, onReady,
 }: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -77,11 +80,11 @@ export default function PulseCanvas({
      once, so a freshly-identified callback would otherwise never be seen.
      Synced in an effect rather than during render — mutating a ref while
      rendering is not safe under concurrent rendering. */
-  const live = useRef({ settings, debug, paused, zoom, fitMode, background });
+  const live = useRef({ settings, debug, paused, zoom, fitMode, background, edgeFade });
   const cb = useRef({ onFps, onError, onFit, onReady });
 
   useEffect(() => {
-    live.current = { settings, debug, paused, zoom, fitMode, background };
+    live.current = { settings, debug, paused, zoom, fitMode, background, edgeFade };
     cb.current = { onFps, onError, onFit, onReady };
   });
 
@@ -124,7 +127,7 @@ export default function PulseCanvas({
       nodeSpeed: U("uNodeSpeed"), nodeWidth: U("uNodeWidth"), nodeGain: U("uNodeGain"), flicker: U("uFlicker"),
       exposure: U("uExposure"), white: U("uWhite"),
       pulse: U("uPulse"), glow: U("uGlow"), bg: U("uBg"), debug: U("uDebug"),
-      premul: U("uPremul"),
+      premul: U("uPremul"), edgeFade: U("uEdgeFade"),
     };
 
     /* Geometry never changes — upload once, padded to the array size the
@@ -169,7 +172,7 @@ export default function PulseCanvas({
 
     function frame(now: number) {
       if (lost) return;
-      const { settings: s, debug: dbg, paused: pz, zoom: zm, fitMode: fm, background: bg } = live.current;
+      const { settings: s, debug: dbg, paused: pz, zoom: zm, fitMode: fm, background: bg, edgeFade: ef } = live.current;
 
       const dt = Math.min((now - last) / 1000, 0.1);
       last = now;
@@ -227,6 +230,7 @@ export default function PulseCanvas({
       gl!.uniform1f(u.white, s.white);
       gl!.uniform1i(u.debug, dbg);
       gl!.uniform3fv(u.bg, new Float32Array(bg));
+      gl!.uniform1f(u.edgeFade, ef);
 
       gl!.drawArrays(gl!.TRIANGLES, 0, 3);
 
