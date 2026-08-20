@@ -37,6 +37,12 @@ export default function Footer() {
 
           <div className="footer__bottom">
             <span>© {new Date().getFullYear()} Pulse Fitness</span>
+            <span className="footer__credit">
+              Designed and built by{" "}
+              <a href="https://ziko.design" target="_blank" rel="noreferrer">
+                Ziko
+              </a>
+            </span>
             <span>{t(footer.place)}</span>
           </div>
         </div>

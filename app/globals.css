@@ -1165,6 +1165,18 @@ html.tmorph .tcard{background-image:none;border-color:transparent;box-shadow:non
 .footer__bottom{display:flex;justify-content:space-between;gap:20px;padding-top:24px;flex-wrap:wrap}
 .footer__bottom span{font-size:13px;line-height:16px;color:var(--t-foot)}
 .footer__bottom span:first-child{font-family:var(--font-body)}
+.footer__credit a{
+  position:relative;color:var(--t-foot-link);cursor:pointer;
+  transition:color .18s var(--ease);
+}
+.footer__credit a::after{
+  content:"";position:absolute;left:0;right:0;bottom:-4px;height:1px;
+  background:linear-gradient(90deg,transparent,var(--pulse) 22%,var(--pulse) 78%,transparent);
+  opacity:.42;transform:scaleX(.62);
+  transition:opacity .18s var(--ease),transform .18s var(--ease);
+}
+.footer__credit a:hover{color:var(--text-2)}
+.footer__credit a:hover::after{opacity:.8;transform:scaleX(1)}
 
 .ghost{height:132px;overflow:hidden;background:var(--ink-deep);display:flex;justify-content:center}
 .ghost span{
