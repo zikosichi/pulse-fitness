@@ -18,7 +18,7 @@ export default function Hero() {
       <div className="hero__plate">
         <div className="hero__stage">
           <Image
-            src="/space/hero-boxing.jpg"
+            src="/space/venue-hall.jpg"
             alt=""
             fill
             priority
@@ -44,7 +44,7 @@ export default function Hero() {
         <p className="hero__sub">{t(hero.sub)}</p>
 
         <div className="hero__cta">
-          <CallButton />
+          <CallButton label={ui.bookVisit} />
           <a className="btn btn--ghost" href="#classes">
             {t(ui.viewClasses)}
           </a>
@@ -65,8 +65,8 @@ export default function Hero() {
         </div>
         <span className="hero__rule" aria-hidden="true" />
         <div>
-          <dt>{t(ui.price)}</dt>
-          <dd className="accent">{t(ui.fromPrice)}</dd>
+          <dt>{t(ui.training)}</dt>
+          <dd className="accent">{t(ui.trainingModes)}</dd>
         </div>
       </dl>
     </section>

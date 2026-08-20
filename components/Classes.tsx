@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useLang } from "./LangProvider";
-import { classes, groupMeta, membership, ui } from "@/lib/content";
+import { classes, groupMeta } from "@/lib/content";
 
 export default function Classes() {
   const { t } = useLang();
@@ -42,10 +42,6 @@ export default function Classes() {
           ))}
         </div>
 
-        <div className="classes__foot">
-          <p>{t(membership.groupNote)}</p>
-          <a href="#membership">{t(ui.seePrices)}</a>
-        </div>
       </div>
     </section>
   );

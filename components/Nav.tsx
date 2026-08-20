@@ -1,8 +1,9 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useLang } from "./LangProvider";
-import { CallButton, PulseMark } from "./bits";
+import { CallButton } from "./bits";
 import { nav, ui } from "@/lib/content";
 
 /* A floating pill rather than an edge bar. The artboard only ever shows it
@@ -12,6 +13,7 @@ export default function Nav() {
   const { lang, setLang, t } = useLang();
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState<string>("");
+  const [pastHero, setPastHero] = useState(false);
 
   useEffect(() => {
     const sections = nav
@@ -30,6 +32,20 @@ export default function Nav() {
     return () => io.disconnect();
   }, []);
 
+  useEffect(() => {
+    const syncBrand = () => {
+      const hero = document.getElementById("top");
+      setPastHero((hero?.getBoundingClientRect().bottom ?? 0) <= 96);
+    };
+    syncBrand();
+    window.addEventListener("scroll", syncBrand, { passive: true });
+    window.addEventListener("resize", syncBrand);
+    return () => {
+      window.removeEventListener("scroll", syncBrand);
+      window.removeEventListener("resize", syncBrand);
+    };
+  }, []);
+
   // Close the sheet when the viewport grows back past the breakpoint,
   // otherwise it stays mounted-but-open behind the desktop layout.
   useEffect(() => {
@@ -42,8 +58,20 @@ export default function Nav() {
   return (
     <header className="nav">
       <div className="nav__pill">
-        <a href="#top" aria-label="Pulse Fitness">
-          <PulseMark />
+        <a
+          className={`nav__brand${pastHero ? " is-visible" : ""}`}
+          href="#top"
+          aria-label="Pulse Fitness"
+          aria-hidden={!pastHero}
+          tabIndex={pastHero ? undefined : -1}
+        >
+          <Image
+            src="/brand/pulse-fitness-logo.svg"
+            alt=""
+            width={1283}
+            height={511}
+            sizes="108px"
+          />
         </a>
 
         <nav
@@ -86,7 +114,7 @@ export default function Nav() {
           </button>
         </div>
 
-        <CallButton size="sm" className="nav__cta" />
+        <CallButton size="sm" className="nav__cta" label={ui.book} />
 
         <button
           className="burger"

@@ -46,7 +46,7 @@ export default function Membership() {
                 size="lg"
                 icon={false}
                 variant={p.featured ? "pulse" : "outline"}
-                label={p.cta}
+                label={ui.bookVisit}
                 className="btn--block"
               />
             </article>

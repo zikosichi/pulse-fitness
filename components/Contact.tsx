@@ -5,6 +5,24 @@ import { CallButton, MapButton, Tbd } from "./bits";
 import { config, mapLink } from "@/lib/config";
 import { contact, ui } from "@/lib/content";
 
+function InstagramIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <rect x="3" y="3" width="18" height="18" rx="5" />
+      <circle cx="12" cy="12" r="4.25" />
+      <circle className="social-icon__dot" cx="17.4" cy="6.7" r="1" />
+    </svg>
+  );
+}
+
+function FacebookIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M13.6 21v-8h2.8l.42-3.2H13.6V7.75c0-.93.27-1.56 1.62-1.56h1.73V3.33c-.3-.04-1.33-.13-2.53-.13-2.5 0-4.22 1.52-4.22 4.33V9.8H7.37V13h2.83v8h3.4Z" />
+    </svg>
+  );
+}
+
 /* Where the decision gets made. Phone, address and hours are plain DOM and
    never depend on a script — if everything else fails this still works.
 
@@ -48,6 +66,14 @@ export default function Contact() {
                   )}
                 </dd>
               </div>
+              {config.email && (
+                <div className="contact__field">
+                  <dt>{t(ui.email)}</dt>
+                  <dd>
+                    <a href={`mailto:${config.email}`}>{config.email}</a>
+                  </dd>
+                </div>
+              )}
             </div>
           </dl>
 
@@ -56,21 +82,31 @@ export default function Contact() {
             <MapButton label={ui.openMaps} />
           </div>
 
-          {config.socials.instagram || config.socials.facebook ? (
-            <div className="contact__actions">
+          {(config.socials.instagram || config.socials.facebook) && (
+            <div className="contact__socials" aria-label="Social media">
               {config.socials.instagram && (
-                <a href={config.socials.instagram} target="_blank" rel="noopener">
-                  Instagram
+                <a
+                  className="contact__social contact__social--instagram"
+                  href={config.socials.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Pulse Fitness on Instagram — @pulse.fitness_26"
+                >
+                  <InstagramIcon />
                 </a>
               )}
               {config.socials.facebook && (
-                <a href={config.socials.facebook} target="_blank" rel="noopener">
-                  Facebook
+                <a
+                  className="contact__social contact__social--facebook"
+                  href={config.socials.facebook}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Pulse Fitness on Facebook"
+                >
+                  <FacebookIcon />
                 </a>
               )}
             </div>
-          ) : (
-            <Tbd label={ui.socialsPlaceholder} />
           )}
         </div>
 

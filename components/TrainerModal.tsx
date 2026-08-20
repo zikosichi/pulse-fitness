@@ -109,7 +109,7 @@ export default function TrainerModal({
                 width={640}
                 height={800}
                 sizes="(max-width: 860px) 100vw, 340px"
-                quality={82}
+                quality={95}
               />
               <span
                 className={`tcard__badge${trainer.head ? " tcard__badge--lead" : ""}`}
@@ -145,7 +145,7 @@ export default function TrainerModal({
                 </div>
               )}
               <CallButton
-                label={ui.bookSession}
+                label={ui.bookVisit}
                 className="tmodal__cta"
                 onClick={onBook}
               />

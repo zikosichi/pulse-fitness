@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
   images: {
     // Next 16 only honours qualities named here; anything else silently
     // falls back to 75, which is why these have to be declared.
-    qualities: [75, 80, 82],
+    qualities: [75, 80, 82, 95],
   },
   turbopack: {
     // There is a stray yarn.lock in the home directory above this project,

@@ -170,12 +170,12 @@ export default function Trainers() {
                   width={640}
                   height={800}
                   sizes="(max-width: 600px) 100vw, (max-width: 1180px) 50vw, 302px"
-                  quality={82}
+                  quality={95}
                 />
                 <span
                   className={`tcard__badge${tr.head ? " tcard__badge--lead" : ""}`}
                 >
-                  {t(tr.role)}
+                  {t(tr.cardRole ?? tr.role)}
                 </span>
                 <span className="tcard__more" aria-hidden="true">
                   <Expand />

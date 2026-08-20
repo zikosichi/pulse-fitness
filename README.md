@@ -212,5 +212,7 @@ Genuinely missing, showing as placeholders:
 
 ## Deploy
 
-Vercel. Framework preset Next.js, no extra configuration. Set
-`NEXT_PUBLIC_SITE_URL` to the real domain so Open Graph images resolve.
+Vercel. Framework preset Next.js, no extra configuration. The canonical URL
+defaults to `https://pulsefitness.ge`; set `NEXT_PUBLIC_SITE_URL` when a deploy
+uses a different public hostname. The Open Graph/Twitter image, `robots.txt`,
+and `sitemap.xml` all derive their absolute URLs from that value.

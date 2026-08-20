@@ -28,6 +28,8 @@ export const nav: { href: string; label: Bi }[] = [
 
 export const ui = {
   call: { ka: "დარეკე", en: "Call" },
+  book: { ka: "დაჯავშნე", en: "Book" },
+  bookVisit: { ka: "დაჯავშნე ვიზიტი", en: "Book a visit" },
   viewClasses: { ka: "ნახე ვარჯიშები", en: "View classes" },
   openMaps: { ka: "რუკაზე გახსნა", en: "Open in maps" },
   fullBio: { ka: "სრული ბიო", en: "View full profile" },
@@ -40,9 +42,10 @@ export const ui = {
   address: { ka: "მისამართი", en: "Address" },
   hours: { ka: "სამუშაო საათები", en: "Hours" },
   phone: { ka: "ტელეფონი", en: "Phone" },
+  email: { ka: "ელფოსტა", en: "Email" },
   everyDay: { ka: "ორშ–კვი · 08:00–23:00", en: "Mon–Sun · 8am–11pm" },
   alsoAvailable: { ka: "ასევე ხელმისაწვდომია", en: "Also available" },
-  withTrainer: { ka: "მწვრთნელთან ერთად", en: "With a trainer" },
+  withTrainer: { ka: "პირადი მწვრთნელის სერვისი", en: "Personal trainer service" },
   groupPricing: { ka: "ჯგუფური ვარჯიშები", en: "Group classes" },
   phonePlaceholder: { ka: "[ტელეფონის ნომერი]", en: "[phone number]" },
   addressPlaceholder: { ka: "[მისამართი]", en: "[address]" },
@@ -53,8 +56,8 @@ export const ui = {
   /* hero */
   eyebrow: { ka: "წყალტუბოს პირველი სპორტდარბაზი", en: "Tskaltubo's first gym" },
   open: { ka: "სამუშაო საათები", en: "Open" },
-  price: { ka: "ფასი", en: "From" },
-  fromPrice: { ka: "120 ₾-დან", en: "120 ₾" },
+  training: { ka: "ვარჯიში", en: "Training" },
+  trainingModes: { ka: "პირადი · ჯგუფური", en: "Personal · group" },
   city: { ka: "წყალტუბო", en: "Tskaltubo" },
 
   /* venue */
@@ -64,7 +67,6 @@ export const ui = {
   upNext: { ka: "შემდეგი", en: "up next" },
 
   /* elsewhere */
-  seePrices: { ka: "ფასები 120 ₾-დან →", en: "Prices from 120 ₾ →" },
   plusCode: { ka: "Plus Code", en: "Plus Code" },
   mapActivate: { ka: "შეეხე რუკის გასააქტიურებლად", en: "Tap to explore the map" },
 } satisfies Record<string, Bi>;
@@ -115,7 +117,7 @@ export const proof = {
 
 export const about = {
   title: {
-    ka: "წყალტუბოსთვის შექმნილი",
+    ka: "შექმნილია წყალტუბოსთვის",
     en: "Built for this town",
   },
   body: [
@@ -124,7 +126,7 @@ export const about = {
       en: "Pulse started with a simple idea: Tskaltubo deserved a modern place to move, sweat, and belong. No intimidation, no ego — just great equipment, real coaching, and a crew that shows up for each other.",
     },
     {
-      ka: "აქ ყველა თავისიანია — მნიშვნელობა არ აქვს, პირველად იწყებ ვარჯიშს თუ დიდი გამოცდილება გაქვს. ეს შენი ქალაქია. ეს შენი დარბაზია.",
+      ka: "აქ ყველა შენიანია — მნიშვნელობა არ აქვს, პირველად იწყებ ვარჯიშს თუ დიდი გამოცდილება გაქვს. ეს შენი ქალაქია. ეს შენი დარბაზია.",
       en: "Whether it's your first session or your five-hundredth, you'll find the same welcome at the door.",
     },
   ],
@@ -143,34 +145,34 @@ export const about = {
 export type OfferItem = { title: Bi; body: Bi; hours?: string; mark?: boolean };
 
 export const offer = {
-  title: { ka: "ივარჯიშე შენებურად", en: "Train your way" },
+  title: { ka: "სავარჯიშო ზონები", en: "Training zones" },
   items: [
     {
-      title: { ka: "ძალა", en: "Strength" },
+      title: { ka: "ძალოვანი ზონა", en: "Strength zone" },
       body: {
-        ka: "თავისუფალი წონების ზონა, რექები და ტრენაჟორები. ააშენე ძალა მწვრთნელის მეთვალყურეობით.",
-        en: "Full free-weight zone, racks, and machines. Build power with coached lifting programs.",
+        ka: "ჰანტელები, შტანგები, სკამები და ფეხების, მკერდის, ზურგისა და მხრების ტრენაჟორები.",
+        en: "Dumbbells, barbells, benches, and dedicated machines for legs, chest, back, and shoulders.",
       },
     },
     {
       title: { ka: "კარდიო", en: "Cardio" },
       body: {
-        ka: "ბილიკები, ველოსიპედები და ნიჩბები. იმოძრავე სწრაფად, ისუნთქე ღრმად.",
-        en: "Treadmills, bikes and rowers. Move fast, breathe hard, feel unstoppable.",
+        ka: "სარბენი ბილიკები, ელიფსები და ველოტრენაჟორები გამძლეობისა და ენერგიისთვის.",
+        en: "Treadmills, ellipticals, and exercise bikes for endurance and energy.",
       },
     },
     {
-      title: { ka: "ჯგუფური", en: "Classes" },
+      title: { ka: "ფუნქციური და მობილობის ზონა", en: "Functional & mobility zone" },
       body: {
-        ka: "აერობიკა, პილატესი, ბოქსი, კიკბოქსი და სხვა — ექვსი ტიპის ვარჯიში, ნამდვილ მწვრთნელებთან.",
-        en: "Aerobics, pilates, boxing, kickboxing and more — six class types, with real coaches.",
+        ka: "TRX, თოკები, გირები, ბოქსები, რეზინები, იოგას მატები და გასაჭიმი ინვენტარი.",
+        en: "TRX, battle ropes, kettlebells, plyo boxes, resistance bands, mats, and mobility equipment.",
       },
     },
     {
-      title: { ka: "ღია დარბაზი", en: "Open gym" },
+      title: { ka: "სამუშაო საათები", en: "Opening hours" },
       body: {
-        ka: "შენი სივრცე, შენი გრაფიკი. სრული წვდომა დილიდან ღამემდე, ყოველ დღე.",
-        en: "Your space, your schedule. Full floor access from early morning to late night, every day.",
+        ka: "სრული დარბაზი შენს განკარგულებაშია დილიდან ღამემდე, კვირაში შვიდი დღე.",
+        en: "The full gym is available from morning until night, seven days a week.",
       },
       hours: "08:00 – 23:00",
       mark: true,
@@ -191,6 +193,8 @@ export type Trainer = {
   name: Bi;
   /** Doubles as the badge over the photo, so keep it short. */
   role: Bi;
+  /** Optional shorter label for the compact card; the profile keeps `role`. */
+  cardRole?: Bi;
   head?: boolean;
   specialty?: Bi;
   stats: [TrainerStat, TrainerStat];
@@ -214,7 +218,7 @@ export const trainers: Trainer[] = [
     name: { ka: "ლაშა გიორხელიძე", en: "Lasha Giorkhelidze" },
     role: { ka: "მთავარი მწვრთნელი", en: "Head trainer" },
     head: true,
-    specialty: { ka: "ძალა · სპორტული მომზადება", en: "Strength · Athletic prep" },
+    specialty: { ka: "პერსონალური მწვრთნელი · ძალა · სპორტული მომზადება", en: "Personal trainer · Strength · Athletic prep" },
     stats: [
       { v: "2002", k: { ka: "წლიდან", en: "since" } },
       { v: "I", k: { ka: "დანი · ტაეკვონდო", en: "Dan · Taekwondo" } },
@@ -238,7 +242,8 @@ export const trainers: Trainer[] = [
     id: "guga",
     photo: "/trainers/guga.jpg",
     name: { ka: "გუგა აფხაძე", en: "Guga Apkhadze" },
-    role: { ka: "სერტიფიცირებული", en: "Certified" },
+    role: { ka: "სერტიფიცირებული პერსონალური მწვრთნელი", en: "Certified personal trainer" },
+    cardRole: { ka: "პერსონალური მწვრთნელი", en: "Personal trainer" },
     specialty: { ka: "სხეულის შემადგენლობა · ფიტნესი", en: "Body recomposition · Fitness" },
     stats: [
       { v: "3", k: { ka: "წელი", en: "years" } },
@@ -263,22 +268,37 @@ export const trainers: Trainer[] = [
     // Identity confirmed 2026-08-17 by the client-supplied filenames
     // (mano-gym-v2.png / bela-gym-v2.png). No longer an assumption.
     id: "mano",
-    photo: "/trainers/mano.jpg",
+    photo: "/trainers/mano-crossed-card-v1.png",
     name: { ka: "მანო ქუთათელაძე", en: "Mano Kutateladze" },
-    role: { ka: "მწვრთნელი", en: "Trainer" },
-    specialty: { ka: "პირადი ვარჯიში", en: "Personal training" },
+    role: { ka: "სერტიფიცირებული პერსონალური მწვრთნელი", en: "Certified personal trainer" },
+    cardRole: { ka: "პერსონალური მწვრთნელი", en: "Personal trainer" },
+    specialty: { ka: "ტანვარჯიში · პირადი ვარჯიში", en: "Gymnastics · Personal training" },
     stats: [
-      { v: "1:1", k: { ka: "ინდივიდუალური", en: "one to one" } },
-      { v: "8–12", k: { ka: "ვარჯიშის პაკეტი", en: "session packs" } },
+      { v: "GEO", k: { ka: "მრავალგზის ჩემპიონი", en: "multiple champion" } },
+      { v: "1:1", k: { ka: "პირადი ვარჯიში", en: "personal training" } },
     ],
-    draft: true,
+    short: {
+      ka: "ყოფილი ტანმოვარჯიშე და საქართველოს მრავალგზის ჩემპიონი, რომელიც მრავალწლიან გამოცდილებას შენს მიზნებზე მორგებულ ვარჯიშად აქცევს.",
+      en: "A former gymnast and multiple Georgian champion who turns years of sporting experience into training built around your goals.",
+    },
+    bio: [
+      {
+        ka: "მე ვარ მანო ქუთათელაძე, ყოფილი ტანმოვარჯიშე და საქართველოს მრავალგზის ჩემპიონი. მრავალწლიანი სპორტული გამოცდილებისა და გავლილი კურსების საფუძველზე ჩემს ცოდნასა და გამოცდილებას ვიყენებ იმისთვის, რომ თითოეულ ადამიანს დავეხმარო საკუთარი მიზნების მიღწევაში.",
+        en: "I am Mano Kutateladze, a former gymnast and multiple Georgian champion. Drawing on many years of sporting experience and professional courses, I use my knowledge to help each person reach their own goals.",
+      },
+      {
+        ka: "ჩემი მიზანია, დავეხმარო ადამიანებს არა მხოლოდ სასურველი ფიზიკური ფორმის მიღწევაში, არამედ ისეთი ცხოვრების წესის ჩამოყალიბებაში, რომელიც ჯანმრთელობას, თავდაჯერებულობასა და მუდმივ პროგრესს მოგიტანთ. შედეგი არ არის შემთხვევითობა — ის სწორად დაგეგმილი შრომის შედეგია. ამიტომ, თუ მზად ხარ შეცვალო საკუთარი თავი, ერთად აუცილებლად მივაღწევთ მიზანს.",
+        en: "My goal is to help people not only achieve the physical shape they want, but build a way of life that brings health, confidence, and continued progress. Results are not an accident — they come from well-planned work. If you are ready to change, together we will reach the goal.",
+      },
+    ],
   },
   {
     id: "bela",
     photo: "/trainers/bela.jpg",
     name: { ka: "ბელა სალუქვაძე", en: "Bela Salukvadze" },
-    role: { ka: "ჯგუფური ვარჯიშები", en: "Group classes" },
-    specialty: { ka: "კარდიო კიკბოქსი · აერობიკა", en: "Cardio kickboxing · Aerobics" },
+    role: { ka: "სერტიფიცირებული პერსონალური მწვრთნელი", en: "Certified personal trainer" },
+    cardRole: { ka: "პერსონალური მწვრთნელი", en: "Personal trainer" },
+    specialty: { ka: "ჯგუფური ვარჯიშების მწვრთნელი · კარდიო კიკბოქსი · აერობიკა", en: "Group class trainer · Cardio kickboxing · Aerobics" },
     stats: [
       { v: "3", k: { ka: "ვარჯიში", en: "classes" } },
       { v: "6", k: { ka: "ჯგუფი / კვირა", en: "groups / week" } },
@@ -392,7 +412,7 @@ export const ribbons = {
     { text: { ka: "ძალა აქ იწყება", en: "Strength starts here" } },
   ],
   mid: [
-    { ka: "წყალტუბოსთვის შექმნილი", en: "Built for Tskaltubo" },
+    { ka: "შექმნილია წყალტუბოსთვის", en: "Built for Tskaltubo" },
     { ka: "შენს ტემპში", en: "At your pace" },
     { ka: "ერთად უფრო ძლიერები", en: "Stronger together" },
     { ka: "ყოველდღე 08:00–23:00", en: "Open daily 08:00–23:00" },
@@ -407,7 +427,6 @@ export type Plan = {
   unit: Bi;
   blurb: Bi;
   features: Bi[];
-  cta: Bi;
   featured?: boolean;
 };
 
@@ -431,7 +450,6 @@ export const membership = {
         { ka: "სრული დარბაზი", en: "Full floor access" },
         { ka: "საშხაპე და საკეტი", en: "Locker & showers" },
       ],
-      cta: { ka: "ერთდღიანი", en: "Get day pass" },
     },
     {
       name: { ka: "თვიური", en: "Monthly" },
@@ -446,7 +464,6 @@ export const membership = {
         { ka: "საშხაპე და საკეტი", en: "Locker & showers" },
         { ka: "ჯგუფური ვარჯიშები ცალკე ფასად", en: "Group classes priced separately" },
       ],
-      cta: { ka: "დაიწყე", en: "Start monthly" },
       featured: true,
     },
     {
@@ -461,7 +478,6 @@ export const membership = {
         { ka: "ყველაფერი, რაც თვიურში", en: "Everything in Monthly" },
         { ka: "12 თვე", en: "12 months" },
       ],
-      cta: { ka: "წლიური", en: "Go annual" },
     },
   ] satisfies Plan[],
   also: [
@@ -470,6 +486,7 @@ export const membership = {
     { label: { ka: "3 თვე", en: "3 months" }, price: 300 },
     { label: { ka: "6 თვე", en: "6 months" }, price: 550 },
     { label: { ka: "თვეში 12 ვიზიტი", en: "12 visits / mo" }, price: 100 },
+    { label: { ka: "სტუდენტი / სკოლის მოსწავლე", en: "Student / school pupil" }, price: 100 },
   ],
   trainer: [
     { label: { ka: "8 ვარჯიში", en: "8 sessions" }, price: 120 },
@@ -485,8 +502,8 @@ export const membership = {
     en: "Group classes are 12 sessions. Second price is with a gym membership.",
   },
   fine: {
-    ka: "ბარათი 5 ₾ · სამაჯური 10 ₾ (ერთჯერადი)",
-    en: "Access card 5 ₾ · Wristband 10 ₾ (one-time)",
+    ka: "ბარათი 10 ₾ · სამაჯური 20 ₾ (ერთჯერადი)",
+    en: "Access card 10 ₾ · Wristband 20 ₾ (one-time)",
   },
 };
 
@@ -494,7 +511,7 @@ export const membership = {
 
 export const contact = {
   title: { ka: "შემოგვიარე წყალტუბოში", en: "Come say hi in Tskaltubo" },
-  cta: { ka: "დარეკე და მოდი", en: "Call and come in" },
+  cta: { ka: "დარეკე და დაჯავშნე", en: "Call and book" },
   /* Shown while there is no real phone number, so the shape of what is
      missing is visible rather than the field just vanishing. */
   phoneMask: "+995 ___ __ __ __",

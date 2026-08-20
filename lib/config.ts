@@ -11,6 +11,7 @@ export type SiteConfig = {
   phone: string | null;
   /** How it should read on screen. e.g. "+995 555 12 34 56" */
   phoneDisplay: string | null;
+  email: string | null;
   address: { ka: string | null; en: string | null };
   /** Google Maps Plus Code, e.g. "8HPW+HP3" */
   plusCode: string | null;
@@ -26,20 +27,23 @@ export type SiteConfig = {
 export const config: SiteConfig = {
   phone: "+995598294373",
   phoneDisplay: "+995 598 29 43 73",
+  email: "info@pulsefitness.ge",
   address: {
     ka: "წერეთლის ქუჩა 12, წყალტუბო",
     en: "12 Tsereteli Street, Tskaltubo",
   },
   plusCode: null,
-  coords: "42.3284756, 42.6004137",
+  coords: "42.3304111, 42.5992429",
   // Google Maps embed centred on the coordinates resolved from the verified
   // public Maps pin. This query-style embed needs no API key.
   mapEmbed:
-    "https://www.google.com/maps?q=42.3284756%2C42.6004137&z=17&output=embed",
-  mapUrl: "https://maps.app.goo.gl/hw5MeYuzCxYuF5hQ9",
+    "https://www.google.com/maps?q=42.3304111%2C42.5992429&z=17&output=embed",
+  mapUrl: "https://maps.app.goo.gl/iCnv4gXxJFtVmrLi8",
   socials: {
-    instagram: null,
-    facebook: null,
+    instagram:
+      "https://www.instagram.com/pulse.fitness_26?igsi=MXVuNXQ4NWtwNzFzNg%3D%3D&utm_source=qr",
+    facebook:
+      "https://www.facebook.com/profile.php?id=61593707241959&mibextid=wwXIfr&rdid=SncgPeYFY01NDDqM&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1bvGP7CxHV%2F%3Fmibextid%3DwwXIfr#",
   },
 };
 

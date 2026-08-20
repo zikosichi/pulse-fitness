@@ -33,6 +33,21 @@ export function PhoneIcon() {
   );
 }
 
+export function BookingIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path
+        d="M7 3v3M17 3v3M4 9h16M6 5h12a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Zm3 9 2 2 4-5"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
 export function PinIcon() {
   return (
     <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -131,8 +146,8 @@ export function CallButton({
       href={directCall ? (telHref ?? "#contact") : "#contact"}
       onClick={onClick}
     >
-      {icon && size !== "sm" && <PhoneIcon />}
-      <span>{t(label ?? ui.call)}</span>
+      {icon && size !== "sm" && (directCall ? <PhoneIcon /> : <BookingIcon />)}
+      <span>{t(label ?? ui.bookVisit)}</span>
     </a>
   );
 }
