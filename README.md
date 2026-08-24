@@ -2,6 +2,9 @@
 
 Next.js 16 (App Router, TypeScript, Turbopack). Single page, two languages.
 
+> Production operations, GitHub/Vercel deployment, DNS, and email forwarding:
+> [`docs/operations/README.md`](docs/operations/README.md)
+
 ```bash
 npm install     # once
 npm run dev     # http://localhost:3000
