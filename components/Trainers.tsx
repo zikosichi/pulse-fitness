@@ -154,7 +154,7 @@ export default function Trainers() {
         </div>
 
         <div className="deck">
-          {trainers.map((tr) => (
+          {trainers.filter((tr) => !tr.draft).map((tr) => (
             <article
               className="tcard"
               key={tr.id}

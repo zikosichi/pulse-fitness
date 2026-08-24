@@ -97,7 +97,7 @@ export const proof = {
     note: { ka: "და ჯერჯერობით ერთადერთი", en: "and so far the only one" },
   },
   trainers: {
-    figure: "4",
+    figure: "5",
     // "certified" is deliberately not claimed: we have documented credentials
     // for Lasha and Guga only. Change once Mano and Bela are confirmed.
     label: { ka: "მწვრთნელი", en: "Trainers" },
@@ -206,8 +206,8 @@ export type Trainer = {
 export const trainersMeta = {
   title: { ka: "გაიცანი მწვრთნელები", en: "Meet your trainers" },
   lede: {
-    ka: "ოთხი მწვრთნელი. შენზე მორგებული ვარჯიში.",
-    en: "Four trainers. Training built around you.",
+    ka: "ხუთი მწვრთნელი. შენზე მორგებული ვარჯიში.",
+    en: "Five trainers. Training built around you.",
   },
 };
 
@@ -224,43 +224,21 @@ export const trainers: Trainer[] = [
       { v: "I", k: { ka: "დანი · ტაეკვონდო", en: "Dan · Taekwondo" } },
     ],
     short: {
-      ka: "მწვრთნელი 2002 წლიდან. ტაეკვონდოს ყოფილი ეროვნული ნაკრების კაპიტანი, დღეს ძიუდოისტების ფიზიკური მომზადების მწვრთნელი.",
-      en: "Coaching since 2002. Former taekwondo national-team captain, now conditioning judokas and athletes.",
+      ka: "ძალა, გამძლეობა, მენტალური და ფსიქოლოგიური მდგრადობა.",
+      en: "Strength, endurance, mental and psychological resilience.",
     },
     bio: [
       {
-        ka: "2002 წლიდან ვარ მწვრთნელი. ფიტნეს კლუბში ვიმუშავე 2011 წლამდე. ბოლო 6 წელია ოფიციალურად ვმუშაობ ძიუდოისტების ფიზიკური მომზადების მწვრთნელად, ზოგჯერ კლასიკოსებსა და მოჭიდავეებსაც ვეხმარები. ვიყავი წყალტუბოს რაგბის გუნდის ფიზიკური მომზადების მწვრთნელი. მაქვს პირადი მწვრთნელის სოლიდური გამოცდილება.",
-        en: "I have been a coach since 2002. I worked in a fitness club until 2011. For the last six years I have officially worked as a strength and conditioning coach for judo athletes, and I also help classical wrestlers. I was the fitness coach for the Tskaltubo rugby team. I have solid experience as a personal trainer.",
+        ka: "2002 წლიდან ვარ მწვრთნელი. 2011 წლამდე ვმუშაობდი ფიტნეს კლუბში. ბოლო 6 წელია, ოფიციალურად ვმუშაობ ძიუდოისტების ფიზიკური მომზადების მწვრთნელად. ეტაპობრივად ვეხმარები კლასიკური სტილის მოჭიდავეებსაც ფიზიკური მომზადების მიმართულებით. ვიყავი წყალტუბოს რაგბის გუნდის ფიზიკური მომზადების მწვრთნელი. სხვადასხვა დროს წარმატებით ვმუშაობდი ცნობილ ქართველ ათლეტებთან, შესაბამისად, მაქვს პირადი მწვრთნელის საკმაოდ სოლიდური გამოცდილება.",
+        en: "I have been a coach since 2002. Until 2011 I worked in a fitness club. For the last six years I have officially worked as a strength and conditioning coach for judo athletes, and I gradually help classical-style wrestlers with their physical preparation too. I was the strength and conditioning coach for the Tskaltubo rugby team. At various times I have worked successfully with well-known Georgian athletes, so I have solid experience as a personal trainer.",
       },
       {
-        ka: "ჩემი საბაზო სპორტი ტაეკვონდო იყო — დაახლოებით 20 წელი ვივარჯიშე, 7 წელი საქართველოს ნაკრებში, კაპიტანიც ვიყავი. მაქვს პოსტ-ოპერაციული რეაბილიტაციის გამოცდილება: წელიწადში მინიმუმ 3–4 შემთხვევა, 100% წარმატებით. მიყვარს ჩემი საქმე და განსაკუთრებით მსიამოვნებს სპორტსმენებთან მუშაობა.",
-        en: "My base sport was taekwondo — I trained for around 20 years, spent 7 of them on the Georgian national team, and was captain. I have experience with post-operative rehabilitation: at least 3–4 cases a year, all successful. I love my work, and I especially enjoy working with athletes.",
-      },
-    ],
-  },
-  {
-    id: "guga",
-    photo: "/trainers/guga.jpg",
-    name: { ka: "გუგა აფხაძე", en: "Guga Apkhadze" },
-    role: { ka: "სერტიფიცირებული პერსონალური მწვრთნელი", en: "Certified personal trainer" },
-    cardRole: { ka: "პერსონალური მწვრთნელი", en: "Personal trainer" },
-    specialty: { ka: "სხეულის შემადგენლობა · ფიტნესი", en: "Body recomposition · Fitness" },
-    stats: [
-      { v: "3", k: { ka: "წელი", en: "years" } },
-      { v: "MATA", k: { ka: "აკადემია", en: "Academy" } },
-    ],
-    short: {
-      ka: "MATA Academy-ის სერტიფიცირებული მწვრთნელი. სამი წელი, რომელმაც დისციპლინა და პირადი პროგრამები ხილულ შედეგად აქცია.",
-      en: "MATA Academy certified. Three years turning discipline and personal programs into real, visible results.",
-    },
-    bio: [
-      {
-        ka: "უკვე 3 წელია ფიტნესი ჩემი ცხოვრების განუყოფელი ნაწილია. ამ პერიოდში დავაგროვე პრაქტიკული გამოცდილებაც და პროფესიული ცოდნაც, რომელიც MATA Academy-ის პერსონალური ტრენერის კურსზე მივიღე. მჯერა, რომ სწორი ვარჯიში, დისციპლინა და ინდივიდუალური მიდგომა წარმატების მთავარი საფუძველია.",
-        en: "Fitness has been an inseparable part of my life for three years now. In that time I have built both hands-on experience and professional knowledge, gained on the personal trainer course at MATA Academy. I believe correct training, discipline and an individual approach are the foundation of success.",
+        ka: "ჩემი მთავარი მიმართულებაა სპორტსმენის ფიზიკური შესაძლებლობების მაქსიმალურად განვითარება — ძალის, გამძლეობის, სისწრაფის, ფეთქებადობის, მენტალური და ფსიქოლოგიური მდგრადობის გაძლიერება. მაქვს პოსტოპერაციული რეაბილიტაციის მიმართულებით მუშაობის გამოცდილებაც — წელიწადში მინიმუმ 3–4 შემთხვევა, წარმატებული შედეგებით. მიყვარს ჩემი საქმე და განსაკუთრებით მსიამოვნებს სპორტსმენებთან მუშაობა. ჩემთვის მნიშვნელოვანია, თითოეულ სპორტსმენს ინდივიდუალური მიდგომით დავეხმარო საკუთარი შესაძლებლობების მაქსიმალურად გამოვლენასა და განვითარებაში.",
+        en: "My main focus is developing an athlete's physical capacity to the fullest — building strength, endurance, speed, explosiveness, and mental and psychological resilience. I also have experience in post-operative rehabilitation — at least 3–4 cases a year, with successful results. I love my work and especially enjoy working with athletes. It matters to me to help each athlete, through an individual approach, reveal and develop their abilities to the maximum.",
       },
       {
-        ka: "ჩემი მიზანია, თითოეულ კლიენტს დავეხმარო მიზნის მიღწევაში — კუნთოვანი მასის ზრდაში, ცხიმის შემცირებაში, ფორმის გაუმჯობესებასა და ჯანსაღი ცხოვრების წესის ჩამოყალიბებაში. განსაკუთრებულ ყურადღებას ვუთმობ სწორ ტექნიკას, უსაფრთხოებასა და თითოეულის შესაძლებლობებზე მორგებულ პროგრამას.",
-        en: "My goal is to help every client reach their own goal — building muscle, reducing fat, improving condition and establishing a healthy way of life. I pay particular attention to correct technique, safety, and a programme fitted to each person's ability.",
+        ka: "რაც შეეხება ჩემს სპორტულ კარიერას, საბაზისო სპორტს ტაეკვონდო წარმოადგენს, რომელშიც 20 წლის განმავლობაში ვვარჯიშობდი. 7 წლის განმავლობაში ვიყავი საქართველოს ეროვნული ნაკრების წევრი და გარკვეული პერიოდის განმავლობაში გუნდის კაპიტნის სტატუსსაც ვატარებდი. ვარ საქართველოს მრავალგზის ჩემპიონი და სხვადასხვა საერთაშორისო ტურნირების გამარჯვებული. 2000 წელს გავხდი ევროპის ვერცხლის პრიზიორი, ხოლო 2009 წელს — მსოფლიო ჩემპიონი. ჩემი სპორტული კარიერა ჩემთვის განსაკუთრებით მნიშვნელოვანი გამოცდილებაა, რადგან წლების განმავლობაში მიღებული ცოდნა და გამოცდილება დღეს მეხმარება სპორტსმენებთან მუშაობაში და მათი ფიზიკური, მენტალური და ფსიქოლოგიური შესაძლებლობების განვითარებაში.",
+        en: "As for my own athletic career, my base sport is taekwondo, which I trained in for 20 years. For seven years I was a member of the Georgian national team, and for a period I held the status of team captain. I am a multiple Georgian champion and a winner of various international tournaments. In 2000 I took European silver, and in 2009 I became world champion. My sporting career is a particularly valuable experience for me, because the knowledge and experience I have gained over the years helps me today in working with athletes and developing their physical, mental and psychological abilities.",
       },
     ],
   },
@@ -293,6 +271,32 @@ export const trainers: Trainer[] = [
     ],
   },
   {
+    id: "guga",
+    photo: "/trainers/guga.jpg",
+    name: { ka: "გუგა აფხაძე", en: "Guga Apkhadze" },
+    role: { ka: "სერტიფიცირებული პერსონალური მწვრთნელი", en: "Certified personal trainer" },
+    cardRole: { ka: "პერსონალური მწვრთნელი", en: "Personal trainer" },
+    specialty: { ka: "სხეულის შემადგენლობა · ფიტნესი", en: "Body recomposition · Fitness" },
+    stats: [
+      { v: "3", k: { ka: "წელი", en: "years" } },
+      { v: "MATA", k: { ka: "აკადემია", en: "Academy" } },
+    ],
+    short: {
+      ka: "MATA Academy-ის სერტიფიცირებული მწვრთნელი. სამი წელი, რომელმაც დისციპლინა და პირადი პროგრამები ხილულ შედეგად აქცია.",
+      en: "MATA Academy certified. Three years turning discipline and personal programs into real, visible results.",
+    },
+    bio: [
+      {
+        ka: "უკვე 3 წელია ფიტნესი ჩემი ცხოვრების განუყოფელი ნაწილია. ამ პერიოდში დავაგროვე პრაქტიკული გამოცდილებაც და პროფესიული ცოდნაც, რომელიც MATA Academy-ის პერსონალური ტრენერის კურსზე მივიღე. მჯერა, რომ სწორი ვარჯიში, დისციპლინა და ინდივიდუალური მიდგომა წარმატების მთავარი საფუძველია.",
+        en: "Fitness has been an inseparable part of my life for three years now. In that time I have built both hands-on experience and professional knowledge, gained on the personal trainer course at MATA Academy. I believe correct training, discipline and an individual approach are the foundation of success.",
+      },
+      {
+        ka: "ჩემი მიზანია, თითოეულ კლიენტს დავეხმარო მიზნის მიღწევაში — კუნთოვანი მასის ზრდაში, ცხიმის შემცირებაში, ფორმის გაუმჯობესებასა და ჯანსაღი ცხოვრების წესის ჩამოყალიბებაში. განსაკუთრებულ ყურადღებას ვუთმობ სწორ ტექნიკას, უსაფრთხოებასა და თითოეულის შესაძლებლობებზე მორგებულ პროგრამას.",
+        en: "My goal is to help every client reach their own goal — building muscle, reducing fat, improving condition and establishing a healthy way of life. I pay particular attention to correct technique, safety, and a programme fitted to each person's ability.",
+      },
+    ],
+  },
+  {
     id: "bela",
     photo: "/trainers/bela.jpg",
     name: { ka: "ბელა სალუქვაძე", en: "Bela Salukvadze" },
@@ -307,6 +311,32 @@ export const trainers: Trainer[] = [
       ka: "უძღვება კარდიო კიკბოქსს, აერობიკასა და კალი-ლიბიდო ფლოუს.",
       en: "Leads our cardio kickboxing, aerobics and Kali-Libido Flow classes.",
     },
+  },
+  {
+    id: "natia",
+    photo: "/trainers/natia-gym-v2.png",
+    name: { ka: "ნათია ბუთიაშვილი", en: "Natia Butiashvili" },
+    role: { ka: "სერტიფიცირებული პერსონალური მწვრთნელი", en: "Certified personal trainer" },
+    cardRole: { ka: "პერსონალური მწვრთნელი", en: "Personal trainer" },
+    specialty: { ka: "ფიტნესის პერსონალური ტრენერი", en: "Fitness personal trainer" },
+    stats: [
+      { v: "3", k: { ka: "წელი", en: "years" } },
+      { v: "MATA", k: { ka: "აკადემია", en: "Academy" } },
+    ],
+    short: {
+      ka: "MATA Academy-ის პერსონალური ტრენერი. სამი წლის გამოცდილება, ინდივიდუალურ მიდგომასა და უსაფრთხო, სწორ ტექნიკაზე აგებული ვარჯიში.",
+      en: "MATA Academy personal trainer. Three years of experience, with training built on an individual approach and safe, correct technique.",
+    },
+    bio: [
+      {
+        ka: "უკვე 3 წელია, რაც ფიტნესი ჩემი ცხოვრების განუყოფელი ნაწილია და ამ დროის განმავლობაში ჩემი მთავარი მიზანი ადამიანებისთვის ჯანსაღი ცხოვრების წესის, სწორი ვარჯიშისა და საკუთარი შესაძლებლობების უკეთ გაცნობის ხელშეწყობაა. პროფესიული ცოდნის კიდევ უფრო გასაღრმავებლად გავიარე MATA Academy-ის პერსონალური ტრენერის კურსი, რომელმაც მომცა შესაძლებლობა, გამეღრმავებინა ცოდნა ვარჯიშის სწორად დაგეგმვის, მოძრაობის ტექნიკის, დატვირთვის სწორად შერჩევისა და ინდივიდუალური მიდგომის მიმართულებით.",
+        en: "Fitness has been an inseparable part of my life for three years now, and throughout that time my main goal has been to help people build a healthy way of life, train correctly, and get to know their own abilities better. To deepen my professional knowledge further, I completed the personal trainer course at MATA Academy, which let me expand what I know about planning training correctly, movement technique, choosing the right load, and an individual approach.",
+      },
+      {
+        ka: "ჩემთვის თითოეული ადამიანი განსხვავებულია — შესაბამისად, ვარჯიშის პროგრამაც უნდა იყოს მორგებული მის მიზნებზე, შესაძლებლობებსა და ცხოვრების სტილზე. ჩემი მუშაობის მთავარი პრინციპებია ინდივიდუალური მიდგომა, სწორი ტექნიკა, თანმიმდევრულობა და უსაფრთხო ვარჯიში. 3-წლიანი პრაქტიკული გამოცდილებისა და MATA Academy-ში მიღებული პროფესიული ცოდნის გაერთიანებით, ვცდილობ თითოეულ ადამიანს დავეხმარო არა მხოლოდ სასურველი შედეგის მიღწევაში, არამედ ისეთი ჩვევების ჩამოყალიბებაში, რომლებიც გრძელვადიანად გახდება მისი ცხოვრების ნაწილი.",
+        en: "For me, every person is different — so the training programme has to be fitted to their goals, abilities and lifestyle. The main principles of my work are an individual approach, correct technique, consistency and safe training. By combining three years of hands-on experience with the professional knowledge I gained at MATA Academy, I try to help each person not only reach the result they want, but form habits that become a lasting part of their life.",
+      },
+    ],
   },
 ];
 
@@ -440,7 +470,7 @@ export const membership = {
   plans: [
     {
       name: { ka: "ერთჯერადი", en: "Drop-in" },
-      price: 20,
+      price: 15,
       unit: { ka: "₾ / დღე", en: "GEL / day" },
       blurb: {
         ka: "მხოლოდ გამოივლი? აიღე ერთდღიანი და ისარგებლე სრული დარბაზით.",

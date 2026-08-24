@@ -614,7 +614,16 @@ html[data-lang="en"] .citycard__word{--city-w:19.85cqw;letter-spacing:.01em}
    ========================================================================= */
 
 .trainers__head{padding-bottom:52px}
-.deck{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px}
+/* Breaks out of the container so five cards get real width, but capped at
+   --deck-max so it stops stretching edge-to-edge on very wide screens. Below
+   that cap it's full-bleed to the viewport (gutter-inset); above it, centred. */
+.deck{
+  --deck-max:1840px;
+  display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:24px;
+  width:min(100vw,var(--deck-max));
+  margin-inline:calc(50% - min(50vw,calc(var(--deck-max) / 2)));
+  padding-inline:var(--gut);
+}
 
 .tcard{
   position:relative;
@@ -629,7 +638,12 @@ html[data-lang="en"] .citycard__word{--city-w:19.85cqw;letter-spacing:.01em}
 .tcard__hit{position:absolute;inset:0;z-index:2;border-radius:inherit}
 .tcard__hit:focus-visible{outline-offset:-4px}
 .tcard__media{position:relative;aspect-ratio:302/340}
-.tcard__media img{width:100%;height:100%;object-fit:cover;object-position:center top}
+/* Absolutely fill the fixed-ratio media box so every photo is the exact same
+   height regardless of its intrinsic dimensions — object-fit crops the image
+   inside the box, so it never sets its own height or pushes the card taller.
+   No overflow:hidden here — the expand button (.tcard__more) intentionally
+   hangs below the media edge and must not be clipped. */
+.tcard__media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top}
 .tcard__badge{
   position:absolute;left:18px;bottom:16px;padding:6px 13px;border-radius:999px;
   background:var(--badge-dark);color:var(--text-2);box-shadow:var(--sh-badge);
@@ -706,17 +720,30 @@ html[data-lang="en"] .citycard__word{--city-w:19.85cqw;letter-spacing:.01em}
 .tmodal__stats div + div{border-left:1px solid var(--line-3)}
 .tmodal__stats b{font-family:var(--font-display);font-size:22px;font-weight:700;line-height:24px;color:var(--text)}
 .tmodal__stats span{font-size:11px;line-height:14px;color:var(--t-label)}
-.tmodal__body{min-height:0;overflow-y:auto;padding:44px 44px 40px;display:flex;flex-direction:column}
+/* The body itself no longer scrolls. If it did, an over-long bio would make
+   .tmodal__detail taller than the panel, and — because it is its own
+   view-transition group — the morph would lift it out and paint it at that
+   full height, escaping the scroll clip: you'd see the whole bio during the
+   animation and then watch it snap to the clipped box when it lands. Instead
+   the bio (.tmodal__text) is the scroll boundary, so the detail box is always
+   the visible size and its snapshot matches the resting state. */
+.tmodal__body{min-height:0;overflow:hidden;padding:44px 44px 40px;display:flex;flex-direction:column}
 .tmodal__head{flex:0 0 auto;display:flex;flex-direction:column;gap:8px;padding-right:40px;view-transition-name:trainer-name}
 .tmodal__head h3{font-size:30px;line-height:36px;letter-spacing:-.01em;color:var(--text)}
 .tmodal__spec{font-size:13px;font-weight:600;line-height:19px;color:var(--t-soft)}
 .tmodal__detail{
-  flex:1 1 auto;display:flex;flex-direction:column;align-items:flex-start;gap:32px;
+  flex:1 1 auto;min-height:0;display:flex;flex-direction:column;align-items:flex-start;gap:32px;
   view-transition-name:trainer-detail;
 }
-.tmodal__text{margin-top:22px;font-size:15px;line-height:25px;color:var(--t-body)}
+/* Grows to fill the detail column and scrolls internally when the bio is long,
+   which keeps the CTA below it pinned and visible instead of scrolling away. */
+.tmodal__text{flex:1 1 auto;min-height:0;overflow-y:auto;align-self:stretch;margin-top:22px;padding-right:14px;font-size:15px;line-height:25px;color:var(--t-body);scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.22) transparent}
+.tmodal__text::-webkit-scrollbar{width:6px}
+.tmodal__text::-webkit-scrollbar-track{background:transparent}
+.tmodal__text::-webkit-scrollbar-thumb{background:rgba(255,255,255,.18);border-radius:99px}
+.tmodal__text::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,.32)}
 .tmodal__text p + p{margin-top:14px}
-.tmodal__cta{margin-top:auto;flex-shrink:0}
+.tmodal__cta{flex-shrink:0}
 .tmodal__close{
   position:absolute;top:16px;right:16px;z-index:3;view-transition-name:trainer-close;width:38px;height:38px;border-radius:999px;
   display:flex;align-items:center;justify-content:center;
@@ -891,6 +918,9 @@ html.tmorph .tcard{background-image:none;border-color:transparent;box-shadow:non
   .tmodal__stats{order:3;flex:0 0 auto;border-top:1px solid var(--line-3)}
   .tmodal__head h3{font-size:26px;line-height:32px}
   .tmodal__detail{gap:26px}
+  /* On the sheet the whole panel scrolls, so the bio must flow at its natural
+     height into that scroll rather than trapping a scroll area inside itself. */
+  .tmodal__text{flex:0 0 auto;overflow:visible;min-height:auto}
 
   /* A 44px target, and dark enough to hold against the photograph behind
      it — at this size the X is the obvious way out even with the scrim

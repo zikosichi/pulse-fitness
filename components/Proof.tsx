@@ -27,7 +27,7 @@ export default function Proof() {
             <b className="proof__fig">{proof.trainers.figure}</b>
             <span className="proof__label">{t(proof.trainers.label)}</span>
             <div className="facepile">
-              {trainers.map((tr) => (
+              {trainers.filter((tr) => !tr.draft).map((tr) => (
                 <Image
                   key={tr.id}
                   src={tr.photo}
