@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import { LangProvider } from "@/components/LangProvider";
 import { config } from "@/lib/config";
 import { HOURS } from "@/lib/content";
@@ -144,6 +145,7 @@ export default function RootLayout({
       </head>
       <body>
         <LangProvider>{children}</LangProvider>
+        <Analytics />
       </body>
     </html>
   );
