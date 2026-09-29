@@ -5,7 +5,7 @@ import { useLang } from "./LangProvider";
 import { footer, nav } from "@/lib/content";
 
 export default function Footer() {
-  const { t } = useLang();
+  const { t, lang } = useLang();
 
   return (
     <>
@@ -25,6 +25,12 @@ export default function Footer() {
             </div>
 
             <nav className="footer__links" aria-label={t(footer.tagline)}>
+              <a href={`/presale/terms?lang=${lang}`}>
+                {t({ ka: "შეძენის პირობები", en: "Purchase terms" })}
+              </a>
+              <a href={`/presale/privacy?lang=${lang}`}>
+                {t({ ka: "კონფიდენციალურობა", en: "Privacy" })}
+              </a>
               {nav.map((n) => (
                 <a key={n.href} href={n.href}>
                   {t(n.label)}

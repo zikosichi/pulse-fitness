@@ -9,13 +9,14 @@ import { nav, ui } from "@/lib/content";
 /* A floating pill rather than an edge bar. The artboard only ever shows it
    over the hero, but it is fixed so it survives the scroll — this page's
    day job is a business card and the call button has to stay reachable. */
-export default function Nav() {
+export default function Nav({ innerPage = false, className = "" }: { innerPage?: boolean; className?: string }) {
   const { lang, setLang, t } = useLang();
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState<string>("");
   const [pastHero, setPastHero] = useState(false);
 
   useEffect(() => {
+    if (innerPage) return;
     const sections = nav
       .map((n) => document.querySelector(n.href))
       .filter((el): el is Element => Boolean(el));
@@ -30,9 +31,10 @@ export default function Nav() {
     );
     sections.forEach((s) => io.observe(s));
     return () => io.disconnect();
-  }, []);
+  }, [innerPage]);
 
   useEffect(() => {
+    if (innerPage) return;
     const syncBrand = () => {
       const hero = document.getElementById("top");
       setPastHero((hero?.getBoundingClientRect().bottom ?? 0) <= 96);
@@ -44,26 +46,26 @@ export default function Nav() {
       window.removeEventListener("scroll", syncBrand);
       window.removeEventListener("resize", syncBrand);
     };
-  }, []);
+  }, [innerPage]);
 
   // Close the sheet when the viewport grows back past the breakpoint,
   // otherwise it stays mounted-but-open behind the desktop layout.
   useEffect(() => {
-    const mq = window.matchMedia("(min-width: 901px)");
+    const mq = window.matchMedia(innerPage ? "(min-width: 1101px)" : "(min-width: 901px)");
     const sync = () => mq.matches && setOpen(false);
     mq.addEventListener("change", sync);
     return () => mq.removeEventListener("change", sync);
-  }, []);
+  }, [innerPage]);
 
   return (
-    <header className="nav">
+    <header className={`nav ${className}`}>
       <div className="nav__pill">
         <a
-          className={`nav__brand${pastHero ? " is-visible" : ""}`}
-          href="#top"
+          className={`nav__brand${innerPage || pastHero ? " is-visible" : ""}`}
+          href={innerPage ? `/?lang=${lang}#top` : "#top"}
           aria-label="Pulse Fitness"
-          aria-hidden={!pastHero}
-          tabIndex={pastHero ? undefined : -1}
+          aria-hidden={!innerPage && !pastHero}
+          tabIndex={innerPage || pastHero ? undefined : -1}
         >
           <Image
             src="/brand/pulse-fitness-logo.svg"
@@ -82,7 +84,7 @@ export default function Nav() {
           {nav.map((n) => (
             <a
               key={n.href}
-              href={n.href}
+              href={innerPage ? `/?lang=${lang}${n.href}` : n.href}
               className={active === n.href ? "is-active" : undefined}
               onClick={() => setOpen(false)}
             >
@@ -114,7 +116,12 @@ export default function Nav() {
           </button>
         </div>
 
-        <CallButton size="sm" className="nav__cta" label={ui.book} />
+        <CallButton
+          size="sm"
+          className="nav__cta"
+          href={innerPage ? `/?lang=${lang}#contact` : `/presale?lang=${lang}`}
+          label={innerPage ? { ka: "კონტაქტი", en: "Contact" } : { ka: "შეიძინე", en: "Presale" }}
+        />
 
         <button
           className="burger"

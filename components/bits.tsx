@@ -126,6 +126,7 @@ export function CallButton({
   variant = "pulse",
   icon = true,
   directCall = false,
+  href,
   label,
   className,
   onClick,
@@ -134,6 +135,7 @@ export function CallButton({
   variant?: "pulse" | "outline";
   icon?: boolean;
   directCall?: boolean;
+  href?: string;
   label?: Bi;
   className?: string;
   onClick?: MouseEventHandler<HTMLAnchorElement>;
@@ -143,7 +145,7 @@ export function CallButton({
   return (
     <a
       className={`btn btn--${variant}${mod}${className ? ` ${className}` : ""}`}
-      href={directCall ? (telHref ?? "#contact") : "#contact"}
+      href={href ?? (directCall ? (telHref ?? "#contact") : "#contact")}
       onClick={onClick}
     >
       {icon && size !== "sm" && (directCall ? <PhoneIcon /> : <BookingIcon />)}

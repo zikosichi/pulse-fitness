@@ -452,6 +452,7 @@ export const ribbons = {
 /* ------------------------------------------------------ 08 membership */
 
 export type Plan = {
+  id: string;
   name: Bi;
   price: number;
   unit: Bi;
@@ -470,6 +471,7 @@ export const membership = {
   plans: [
     {
       name: { ka: "ერთჯერადი", en: "Drop-in" },
+      id: "day",
       price: 15,
       unit: { ka: "₾ / დღე", en: "GEL / day" },
       blurb: {
@@ -483,6 +485,7 @@ export const membership = {
     },
     {
       name: { ka: "თვიური", en: "Monthly" },
+      id: "monthly",
       price: 120,
       unit: { ka: "₾ / თვე", en: "GEL / month" },
       blurb: {
@@ -498,6 +501,7 @@ export const membership = {
     },
     {
       name: { ka: "წლიური", en: "Annual" },
+      id: "annual",
       price: 1000,
       unit: { ka: "₾ / წელი", en: "GEL / year" },
       blurb: {

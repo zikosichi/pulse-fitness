@@ -12,6 +12,9 @@ import {
   SOCIAL_DESCRIPTION,
 } from "@/lib/seo";
 import "./globals.css";
+import { PromotionProvider } from "@/components/PromotionProvider";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   metadataBase: SITE_ORIGIN,
@@ -125,6 +128,9 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  // Server-only request timestamp; dynamic rendering prevents cached offer pricing.
+  // eslint-disable-next-line react-hooks/purity
+  const initialNow = Date.now();
   return (
     // Georgian is the default; LangProvider updates these after mount.
     <html lang="ka" data-lang="ka">
@@ -144,7 +150,7 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <LangProvider>{children}</LangProvider>
+        <LangProvider><PromotionProvider initialNow={initialNow}>{children}</PromotionProvider></LangProvider>
         <Analytics />
       </body>
     </html>

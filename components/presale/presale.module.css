@@ -1,0 +1,534 @@
+.page {
+  min-height: 100vh;
+  background: var(--ink);
+  color: var(--text);
+  font-family: var(--font-body);
+}
+.navigation :global(.nav__pill),
+.main,
+.footer {
+  width: min(1280px, calc(100% - 2 * var(--gut)));
+  margin-inline: auto;
+}
+.navigation :global(.nav__pill) {
+  position: relative;
+}
+.navigation :global(.nav__spacer) {
+  flex: 1;
+}
+.main {
+  padding: 156px 0 96px;
+}
+.intro {
+  max-width: 720px;
+  margin-bottom: 46px;
+}
+.intro h1 {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 4.6vw, 60px);
+  font-weight: 700;
+  line-height: 1.16;
+  letter-spacing: -0.025em;
+  margin-bottom: 22px;
+}
+.intro h1 span {
+  display: block;
+  color: var(--pulse);
+}
+.intro > p {
+  max-width: 560px;
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--t-body);
+}
+.checkout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: 40px;
+  align-items: start;
+}
+.formPanel {
+  padding: 32px;
+  border: 1px solid var(--line-2);
+  border-radius: var(--r-card);
+  background: var(--ink-2);
+}
+.formPanel fieldset {
+  border: 0;
+  padding: 0;
+  margin: 0 0 42px;
+  min-width: 0;
+}
+.formPanel fieldset:last-child {
+  margin-bottom: 0;
+}
+.formPanel legend {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 19px;
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+.formPanel legend > span {
+  font-size: 12px;
+  color: var(--pulse);
+  border: 1px solid var(--pulse-deep);
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px 16px;
+}
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  font-size: 13px;
+  color: var(--t-nav);
+}
+.field input,
+.field select {
+  width: 100%;
+  min-width: 0;
+  min-height: 52px;
+  padding: 13px 14px;
+  border: 1px solid var(--line-4);
+  border-radius: 9px;
+  background: var(--ink-2);
+  color: var(--text);
+  font: inherit;
+  font-size: 16px;
+  outline-offset: 3px;
+}
+/* Own chevron: the native one hugs the edge and sits off-centre next to
+   Georgian glyphs, which carry taller ascenders than the Latin fallback. */
+.field select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 48px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 6l4 4 4-4' fill='none' stroke='%23C6D2CC' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 18px center;
+  background-size: 16px 16px;
+  cursor: pointer;
+}
+.field input:focus,
+.field select:focus {
+  outline: 2px solid var(--pulse);
+}
+.field input::placeholder {
+  color: var(--t-soft);
+}
+.hint {
+  font-size: 12px;
+  line-height: 1.8;
+  color: var(--t-body);
+  margin-top: 14px;
+}
+.trap {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+.summary {
+  border: 1px solid var(--line-4);
+  border-radius: var(--r-card);
+  background: var(--surf-plan-hi);
+  padding: 32px;
+  box-shadow: var(--sh-plan);
+}
+.summary h2 {
+  font-size: 23px;
+  line-height: 1.5;
+  margin: 0 0 14px;
+}
+/* The discount row carries the whole offer: the cut and the time left
+   read as one tag, so nothing above the totals competes with it. */
+.offerTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  height: 30px;
+  padding: 0 12px 0 3px;
+  border-radius: 999px;
+  background: #3dc26c14;
+  border: 1px solid #3dc26c47;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--pulse);
+}
+.offerTag b {
+  display: grid;
+  place-items: center;
+  height: 22px;
+  padding-inline: 8px;
+  border-radius: 999px;
+  background: var(--pulse);
+  color: var(--on-pulse);
+  box-shadow: var(--sh-badge);
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+}
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.totals {
+  margin: 8px 0 24px;
+}
+.totals > div {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 15px;
+  margin: 13px 0;
+  font-size: 13px;
+  color: var(--t-body);
+}
+.totals dd {
+  white-space: nowrap;
+}
+.totals .saving {
+  align-items: center;
+  color: var(--pulse);
+  font-weight: 600;
+}
+.saving dt {
+  display: flex;
+  align-items: center;
+}
+.totals .total {
+  border-top: 1px solid var(--line-3);
+  padding-top: 22px;
+  margin-top: 22px;
+  color: var(--text);
+  font-weight: 600;
+}
+.total dd {
+  font-family: var(--font-display);
+  font-size: 56px;
+  line-height: 1;
+}
+.total small {
+  font-family: var(--font-body);
+  font-size: 25px;
+  font-weight: 400;
+  color: var(--t-body);
+}
+.facts {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+}
+.facts li {
+  position: relative;
+  padding-left: 22px;
+  font-size: 12px;
+  line-height: 1.8;
+  color: var(--t-body);
+}
+.facts li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: var(--pulse);
+}
+.consent {
+  display: flex;
+  align-items: start;
+  gap: 10px;
+  font-size: 12px;
+  line-height: 1.8;
+  margin: 25px 0 22px;
+  color: var(--t-body);
+}
+.consent input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--pulse);
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+.consent a,
+.notice a,
+.policy a {
+  color: var(--text);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.pay {
+  width: 100%;
+  justify-content: space-between !important;
+}
+.pay:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+.secure {
+  text-align: center;
+  margin-top: 14px;
+  font-size: 11px;
+  color: var(--t-body);
+  line-height: 1.8;
+}
+.availability {
+  margin-top: 14px;
+  text-align: center;
+  font-size: 13px;
+  line-height: 1.8;
+  color: var(--text);
+}
+.error {
+  border-left: 2px solid #f1a18c;
+  padding: 10px 12px;
+  color: #ffd2c5;
+  font-size: 13px;
+  line-height: 1.8;
+  margin: 16px 0;
+}
+.notice {
+  border: 1px solid var(--line-3);
+  background: var(--ink-2);
+  padding: 16px 20px;
+  border-radius: 10px;
+  font-size: 14px;
+  line-height: 1.8;
+  margin-bottom: 24px;
+}
+.notice a {
+  display: inline-block;
+  margin-left: 5px;
+}
+.footer {
+  padding: 34px 0;
+  border-top: 1px solid var(--line-1);
+  display: flex;
+  justify-content: space-between;
+  gap: 28px;
+  font-size: 12px;
+  line-height: 1.9;
+  color: var(--t-body);
+}
+.footer strong {
+  color: var(--text);
+  font-size: 15px;
+}
+.footer a {
+  display: block;
+}
+.footer p {
+  margin-top: 4px;
+}
+.confirmation {
+  max-width: 660px;
+  margin: auto;
+  text-align: center;
+}
+.confirmation h1 {
+  font-family: var(--font-display);
+  font-size: 38px;
+  line-height: 1.3;
+  margin: 24px 0;
+}
+.confirmation > p {
+  color: var(--t-body);
+  font-size: 15px;
+  line-height: 1.9;
+}
+.statusIcon {
+  margin: auto;
+  width: 70px;
+  height: 70px;
+  border: 1px solid var(--line-3);
+  border-radius: 50%;
+  font-size: 40px;
+  display: grid;
+  place-items: center;
+}
+.paid {
+  background: var(--pulse);
+  color: var(--on-pulse);
+  border: 0;
+}
+.receipt {
+  background: var(--ink-2);
+  border: 1px solid var(--line-3);
+  border-radius: 12px;
+  padding: 24px;
+  margin: 30px 0;
+  text-align: left;
+}
+.receipt > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  margin: 12px 0;
+  font-size: 14px;
+}
+.receipt dt {
+  color: var(--t-body);
+}
+.receipt dd {
+  overflow-wrap: anywhere;
+  text-align: right;
+}
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+  margin-top: 28px;
+}
+.actions > a:not([class]) {
+  font-size: 13px;
+  color: var(--t-body);
+}
+.policy {
+  max-width: 760px;
+  margin: auto;
+}
+.policy h1 {
+  font-size: 36px;
+  line-height: 1.4;
+  margin-bottom: 30px;
+}
+.policy h2 {
+  font-size: 20px;
+  margin: 30px 0 12px;
+}
+.policy p,
+.policy li {
+  color: var(--t-body);
+  font-size: 15px;
+  line-height: 1.9;
+}
+.policy p + p {
+  margin-top: 15px;
+}
+.policy ul {
+  padding-left: 20px;
+}
+@media (max-width: 1100px) {
+  .navigation :global(.nav__links) {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: calc(100% + 10px);
+    flex-direction: column;
+    align-items: stretch;
+    gap: 2px;
+    padding: 14px;
+    border-radius: 22px;
+    background: var(--glass);
+    border: 1px solid var(--line-4);
+    box-shadow: var(--sh-pill);
+    backdrop-filter: blur(16px);
+  }
+  .navigation :global(.nav__links:not(.is-open)) { display: none; }
+  .navigation :global(.nav__links a) { padding: 12px 10px; font-size: 16px; }
+  .navigation :global(.nav__sep) { display: none; }
+  .navigation :global(.burger) { display: flex; }
+}
+@media (max-width: 600px) {
+  .navigation :global(.nav__pill) { gap: 8px; }
+  .navigation :global(.nav__cta) { padding-inline: 12px; font-size: 12px; }
+}
+@media (max-width: 360px) {
+  .navigation :global(.nav__cta) { display: none; }
+}
+@media (min-width: 801px) and (max-width: 1100px) {
+  .fields { grid-template-columns: 1fr; }
+  .checkout { gap: 24px; }
+  .formPanel, .summary { padding: 26px; }
+}
+@media (max-width: 800px) {
+  .main {
+    padding: 120px 0 64px;
+  }
+  .checkout {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .intro {
+    margin-bottom: 30px;
+  }
+  .formPanel,
+  .summary {
+    padding: 26px;
+  }
+  .footer {
+    padding: 30px 0;
+    flex-wrap: wrap;
+  }
+  .formPanel fieldset {
+    margin-bottom: 30px;
+  }
+  .intro h1 {
+    font-size: 40px;
+  }
+  .confirmation h1 {
+    font-size: 30px;
+  }
+}
+@media (max-width: 400px) {
+  .fields {
+    grid-template-columns: 1fr;
+  }
+  .formPanel,
+  .summary {
+    padding: 22px;
+  }
+  .intro h1 {
+    font-size: 33px;
+  }
+  .receipt > div {
+    flex-direction: column;
+    gap: 5px;
+  }
+  .receipt dd {
+    text-align: left;
+  }
+}
+@media print {
+  .navigation,
+  .footer,
+  .actions {
+    display: none;
+  }
+  .page,
+  .receipt {
+    background: white;
+    color: black;
+  }
+  .confirmation > p,
+  .receipt dt {
+    color: #333;
+  }
+  .main {
+    padding: 0;
+  }
+  .paid {
+    background: none;
+    color: black;
+  }
+}
+

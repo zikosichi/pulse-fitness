@@ -1,5 +1,6 @@
 "use client";
 
+import LaunchOffer from "./LaunchOffer";
 import Image from "next/image";
 import { useLang } from "./LangProvider";
 import HeroMark from "./HeroMark";
@@ -11,7 +12,7 @@ import { HOURS, hero, ui } from "@/lib/content";
    HeroMark lights its pulse line with WebGL and falls back to the plain
    drawn logo — see that file for the conditions. */
 export default function Hero() {
-  const { t } = useLang();
+  const { t, lang } = useLang();
 
   return (
     <section className="hero" id="top">
@@ -41,10 +42,15 @@ export default function Hero() {
           <HeroMark />
         </h1>
 
+        <LaunchOffer />
+
         <p className="hero__sub">{t(hero.sub)}</p>
 
         <div className="hero__cta">
-          <CallButton label={ui.bookVisit} />
+          <CallButton
+            href={`/presale?lang=${lang}`}
+            label={{ ka: "შეიძინე წინასწარ", en: "Join the presale" }}
+          />
           <a className="btn btn--ghost" href="#classes">
             {t(ui.viewClasses)}
           </a>
