@@ -1,5 +1,28 @@
 # Presale checkout
 
+## Production configuration — 30 September 2026
+
+The user confirmed that the bank limit is removed and authorized the production release.
+The production origin and canonical site URL are `https://www.pulsefitness.ge`.
+Checkout is `/presale`; staff access is `/admin` with the existing staff credentials.
+Both `PRESALE_ENABLED` and `PRESALE_EMAIL_ENABLED` are enabled in Vercel Production.
+Bank and verified Resend credentials are available to Production; staff API and cron
+tokens are separate from Preview. The daily reconciliation cron is `0 4 * * *` (UTC).
+
+Production uses the separate `pulse_production` database and dedicated
+`pulse_production` login on the existing hosted Neon resource. The production role
+has no database-creation or role-creation privileges, and public database access
+was revoked. `db/presale.sql` was applied successfully, with zero orders and emails
+at initialization. The existing `neondb` database retains test history; test orders
+are not production memberships. Both databases share the Neon resource's compute
+and storage limits. Local development continues to use the test database.
+
+The apex domain redirects to `www`. The test hostname is explicitly assigned to
+`codex/presale-testing`, preventing production deployments from claiming it.
+The 2 GEL test package remains unavailable for new purchases. Existing historical
+testing notes below describe the pre-release state. All 11 tests, lint, and the
+production build passed for this release.
+
 ## Current implementation
 
 The existing Next.js/Vercel site now contains a Georgian/English checkout at `/presale`, a verified payment-status page, purchase terms/privacy information, Bank of Georgia API routes, and a staff list/CSV export at `/admin`.
@@ -90,7 +113,7 @@ Deployment/testing sequence:
 3. Verify authentication, hosted order creation/redirect, bank-confirmed payment, failed/expired checkout and callback delivery. BOG confirmed on 28 September that the testing limit is **GEL 100 per month across all transactions**, and testing uses **real cards and real charges**. Check the remaining limit before a test; a GEL 96 membership payment would consume almost the entire monthly allowance. No card charge was performed during implementation.
 4. Ask the bank to approve the working integration and remove its test limit before opening public sales. Refund work is deferred per the user, even though the original bank email lists policy requirements.
 
-Current status: the user completed a real 2 GEL test payment successfully; the bank confirmed it and the customer plus two staff emails were accepted by Resend. The hosted test database and admin panel are available; see `final-testing.md` for evidence and remaining checks. Bank approval and the removal of its test limit are still required before public sales. No production deployment has been made.
+The user completed a real 2 GEL test payment successfully; the bank confirmed it and the customer plus two staff emails were accepted by Resend. On 30 September the user confirmed removal of the bank limit and authorized public sales. See the production configuration above and `final-testing.md` for historical testing evidence.
 
 ## Retired two-lari payment test
 
