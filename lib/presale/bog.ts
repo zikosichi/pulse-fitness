@@ -108,7 +108,7 @@ export function orderPayload(order: BankOrder) {
     },
     redirect_urls: { success: back, fail: back },
     ttl: 15,
-    payment_method: ["card"],
+    payment_method: ["card", "apple_pay", "google_pay"],
   };
 }
 export async function createBankOrder(order: BankOrder) {

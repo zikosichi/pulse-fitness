@@ -25,6 +25,12 @@ production build passed for this release.
 
 ## Current implementation
 
+New Bank of Georgia hosted checkouts request card, Apple Pay and Google Pay
+(`payment_method: ["card", "apple_pay", "google_pay"]`). David's 2 October
+bank reply confirmed the previous card-only request hid wallet methods. Wallet
+availability on the bank page depends on the customer's device/browser and wallet.
+Existing bank orders retain the payment methods with which they were created.
+
 The existing Next.js/Vercel site now contains a Georgian/English checkout at `/presale`, a verified payment-status page, purchase terms/privacy information, Bank of Georgia API routes, and a staff list/CSV export at `/admin`.
 
 - Unlimited monthly: GEL 96, normally GEL 120; first month only.

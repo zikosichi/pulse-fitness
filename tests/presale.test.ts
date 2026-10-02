@@ -250,6 +250,7 @@ test("registration, bank retry, confirmation and eligibility with real SQL in me
     const payload = orderPayload(a);
     assert.equal(payload.purchase_units.total_amount, 96);
     assert.equal(payload.capture, "automatic");
+    assert.deepEqual(payload.payment_method, ["card", "apple_pay", "google_pay"]);
     assert.equal("buyer" in payload, false);
     const keys: string[] = [];
     let receiptStatus = "completed";
@@ -261,6 +262,9 @@ test("registration, bank retry, confirmation and eligibility with real SQL in me
         return Response.json({ access_token: "test-token", expires_in: 300 });
       if (href.endsWith("/ecommerce/orders")) {
         keys.push((init?.headers as Record<string, string>)["Idempotency-Key"]);
+        assert.deepEqual(JSON.parse(String(init?.body)).payment_method, [
+          "card", "apple_pay", "google_pay",
+        ]);
         assert.equal(
           JSON.parse(String(init?.body)).purchase_units.total_amount,
           96,
